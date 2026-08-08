@@ -8,6 +8,20 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: testdb
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U test -d testdb"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,6 +35,11 @@ jobs:
 
       - name: Build and test
         run: mvn clean verify
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/testdb
+          DB_USERNAME: test
+          DB_PASSWORD: test
+          JWT_SECRET: test-secret-for-ci-only
 
   publish-image:
     needs: verify
