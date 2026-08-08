@@ -1,0 +1,657 @@
+<div ng-controller="tascCont">
+
+    <form ng-submit="formdata()">
+
+        <div class="form-row mb-4 ">
+            <hr style="height: 1px; border: thin; background-color: #80C37D;  margin-bottom: 10px; width: 100%;">
+            <label style="text-align: left; font-size: 18px;" for="applicantName" class="form-label"> APPLICANT </label>
+        </div>
+
+        <div class="form-row mb-3 ">
+
+            <div class="col" >
+                <label for="accountType" class="form-label">Account Type :</label>
+                <input type="text" class="form-input selectedOpt"  ng-model="selectedAccOption"  readonly="">
+            </div>
+
+
+            <div class="col">
+                <label for="branchName" class="form-label">Branch Name :</label>
+                <select id="branchName" name="branchName" class="form-input ml-3" ng-model="branchName" required="">
+                    <option value="" disabled selected  ><i class="center-align" style="color: #999;" >Select Branch Name</option>
+                        <option ng-repeat="option in branchlist" value="{{option}}">{{option}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row mb-3 mr-md-auto  justify-content-center ">
+            <!--<div class="col-md-1 pt-1  mr-md-auto">-->
+            <div class="col-sm-2 pt-1 ">
+                <label for="id" class="form-label ">Entity :</label>
+            </div>
+
+            <div class="col-10">    
+                <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}" id="entity" name="entity" class="form-control "  placeholder="Entity" ng-model="entity" required="">
+            </div>
+
+        </div>
+
+        <div class="form-row mb-3 mr-md-auto  justify-content-center ">
+            <div class="col-sm-2 pt-1 ">
+                <label for="id" class="form-label ">1st Applicant :</label>
+            </div>
+
+            <div class="col-10">    
+                <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}" id="applicant1" name="applicant1" class="form-control "  placeholder="First Applicant" ng-model="applicantFirst" required="">
+            </div>
+
+        </div>
+
+
+        <div class="form-row mb-3 mr-md-auto  justify-content-center " ng-show="showApp2" >
+            <div class="col-sm-2 pt-1 ">
+                <label for="id" class="form-label ">2nd Applicant :</label>
+            </div>
+
+            <div class="col ">
+                <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicantSecond" name="applicantSecond" class="form-control"  placeholder="Second Applicant" ng-model="applicantSecond">
+            </div>
+
+
+        </div>
+
+
+        <div class="form-row mb-3 mr-md-auto  justify-content-center " ng-show="showApp3" >
+            <div class="col-sm-2 pt-1 ">
+                <label for="id" class="form-label ">3rd Applicant :</label>
+            </div>
+
+            <div class="col ">
+                <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicant3" name="applicant3" class="form-control" placeholder="Third Applicant" ng-model="applicantThird">
+            </div>
+
+        </div>
+
+        <div class="form-row mb-3 mr-md-auto  justify-content-center "  ng-show="showApp4">
+            <div class="col-sm-2 pt-1 ">
+                <label for="id" class="form-label ">4th Applicant :</label>
+            </div>
+
+            <div class="col ">
+                <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicant4" name="applicant4" class="form-control" placeholder="Fourth Applicant" ng-model="applicantFourth">
+            </div>
+
+        </div>
+
+        <div class="form-row mb-3 mr-md-auto  justify-content-center " ng-show="showApp5">
+            <div class="col-sm-2 pt-1 ">
+                <label for="id" class="form-label ">5th Applicant :</label>
+            </div>
+
+            <div class="col ">
+                <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicant5" name="applicant5" class="form-control" placeholder="Fifth Applicant" ng-model="applicantFifth">
+            </div>
+
+        </div>
+
+        <!--button for add applicant-->
+        <div class="form-row mb-3" >
+            <button type="button" class="form-buttonf" ng-click="addApplicantTasc()">Add Applicant</button>
+        </div>
+
+        <div class="form-row mb-3" >
+            <button type="button" class="form-buttonf" ng-click="removeApplicantTask()">Remove Applicant</button>
+        </div>
+
+        <div class="form-row mb-3 " >
+            <div class="col">
+                <div class="row">
+                    <div class="col-4">
+                        <label for="adharNo" class="form-label" style="display:inline-block;">Aadhar Number :</label>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+
+                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo1" name="adharNo" class="form-inputf" ng-model="adharNoFirst" placeholder="Aadhar-1">
+                        <img id="info-icon_A1" class="imgsync" ng-click="aadharcheck(adharNoFirst)" src="image/sync.png" alt=""/>
+
+                    </div>
+
+                    <!--2nd addhar-->
+                    <div class="col-4 " ng-show="showApp2" >
+                        <!--                                    <label for="adharNo" class="form-label">Aadhar Number:</label>-->
+                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo2" name="adharNo2" class="form-inputf" ng-model="adharNoSecond" placeholder="Aadhar-2">
+                        <img id="info-icon_A2" class="imgsync" ng-click="aadharcheck(adharNoSecond)" src="image/sync.png" alt=""/>
+                    </div>
+
+                    <!--/ 3rd aadhar -->
+                    <div class="col-4 "  ng-show="showApp3">
+                        <!--                                    <label for="adharNo" class="form-label">Aadhar Number:</label>-->
+                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo3" name="adharNo3" class="form-inputf" ng-model="adharNoThird" placeholder="Aadhar-3">
+                        <img id="info-icon_A3" class="imgsync" ng-click="aadharcheck(adharNoThird)" src="image/sync.png" alt=""/>
+                    </div>
+
+                    <div class="col-4 mt-2"  ng-show="showApp4">
+                        <!--                                    <label for="adharNo" class="form-label">Aadhar Number:</label>-->
+                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo4" name="adharNo4" class="form-inputf" ng-model="adharNoFourth" placeholder="Aadhar-4">
+                        <img id="info-icon_A3" class="imgsync" ng-click="aadharcheck(adharNoFourth)" src="image/sync.png" alt=""/>
+                    </div>
+
+                    <div class="col-4 mt-2 "  ng-show="showApp5" >
+                        <!--                                    <label for="adharNo" class="form-label">Aadhar Number:</label>-->
+                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo5" name="adharNo5" class="form-inputf" ng-model="adharNoFifth" placeholder="Aadhar-5">
+                        <img id="info-icon_A3" class="imgsync" ng-click="aadharcheck(adharNoFifth)" src="image/sync.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-row mb-3 ">
+
+            <div class="col-6">
+                <label for="mobileNo" class="form-label">Mobile Number :</label>
+                <input type="tel"  title="Mobile Number must be 10 length."  pattern="[0-9]{10}" id="mobileNo" name="mobileNo" class="form-input ml-1" ng-model="mobileNo" required="">
+            </div>
+
+        </div>
+
+
+        <div class="form-row mb-3">
+            <hr style="height: 1px; border: thin; background-color: #80C37D;  margin-bottom: 10px; width: 100%;">
+            <label style="text-align: center; font-size: 18px;" for="applicantName" class="form-label"> DOCUMENTS </label>
+        </div>
+
+
+        <div class="form-row mb-3 justify-content-center" >
+            <div class="row ">
+
+                <div class="col-3 vertical_line wrap-doc-content" ng-mouseleave="hidePopup()">
+                    <label ng-mouseenter="showPopup('idProof', 'Id proof', $event)" class="form-label form-label-docs mb-3">ID proof</label>
+                    <div class="popupDoc" ng-show="isHovered && activePopup === 'idProof'" ng-style="popupStyle">
+                        <h4>{{popupHeading}}</h4>
+                        <ul>
+                            <ol>
+                                <li ng-repeat="doc in documents">{{ doc}}</li>
+                            </ol>
+                        </ul>
+                    </div>
+                    <input class="choose-input" type="file" id="idProof" multiple="" ng-files="uploadFilesSave($files, 'idProof')" name="idProof" accept=".jpg, .jpeg, .png, .webp" onchange="checkFiles(10, 3072, this)" required="">
+                </div>
+
+                <div class="col-3 vertical_line wrap-doc-content" ng-mouseleave="hidePopup()">
+                    <label ng-mouseenter="showPopup('addressProof', 'Address Proof', $event)" class="form-label form-label-docs mb-3">Address proof </label>
+                    <div class="popupDoc" ng-show="isHovered && activePopup === 'addressProof'" ng-style="popupStyle">
+                        <h4>{{popupHeading}}</h4>
+                        <ul>
+                            <ol>
+                                <li ng-repeat="doc in documents">{{ doc}}</li>
+                            </ol>
+                        </ul>
+                    </div>
+                    <input class="choose-input" type="file" id="addressProof" multiple="" ng-files="uploadFilesSave($files, 'addressProof')" name="addressProof" accept=".jpg, .jpeg, .png, .webp" onchange="checkFiles(10, 3072, this)" required="">
+                </div>
+
+                <div class="col-3 vertical_line wrap-doc-content" ng-mouseleave="hidePopup()">
+                    <label ng-mouseenter="showPopup('pan', 'Pan', $event)" class="form-label form-label-docs mb-3">PAN Card / Form-49A</label>
+                    <div class="popupDoc" ng-show="isHovered && activePopup === 'pan'" ng-style="popupStyle">
+                        <h4>{{popupHeading}}</h4>
+                        <ul>
+                            <ol>
+                                <li ng-repeat="doc in documents">{{ doc}}</li>
+                            </ol>
+                        </ul>
+                    </div>
+                    <input class="choose-input" type="file" id="pan" multiple="" ng-files="uploadFilesSave($files, 'pan')"  name="panCard" accept=".jpg, .jpeg, .png, .webp" onchange="checkFiles(10, 3072, this)" required="">
+                </div>
+
+                <div class="col-3 vertical_line wrap-doc-content" ng-mouseleave="hidePopup()">
+                    <label ng-mouseenter="showPopup('tascDoc', 'TASC Doc', $event)" class="form-label form-label-docs mb-3">TASC documents</label>
+                    <div class="popupDocL" ng-show="isHovered && activePopup === 'tascDoc'" ng-style="popupStyle">
+                        <h4>{{popupHeading}}</h4>
+                        <ul>
+                            <ol>
+                                <li ng-repeat="doc in documents">{{ doc}}</li>
+                            </ol>
+                        </ul>
+                    </div>
+                    <input class="choose-input" type="file" id="tascDoc" multiple="" ng-files="uploadFilesSave($files, 'tascDoc')" name="companyDocStatus" accept=".pdf" onchange="checkFiles(2, 2048, this)" required="">
+                </div>
+
+
+                <div class="col-3 vertical_line wrap-doc-content "  ng-mouseleave="hidePopup()">
+                    <label ng-mouseenter="showPopup('otherDoc', 'Other Doc', $event)" class="form-label form-label-docs mb-3">Other Docs</label>
+                    <div class="popupDoc" ng-show="isHovered && activePopup === 'otherDoc'" ng-style="popupStyle">
+                        <h4>{{popupHeading}}</h4>
+                        <ul>
+                            <ol>
+                                <li ng-repeat="doc in documents">{{ doc}}</li>
+                            </ol>
+                        </ul>
+                    </div>
+                    <input class="choose-input" type="file" id="otherDoc" multiple ng-files="uploadFilesSave($files, 'otherDoc')" name="otherDoc" accept=".pdf" onchange="checkFiles(5, 2048, this)" required=""> 
+                </div>
+
+
+                <div class="col-2 wrap-doc-content" ng-mouseleave="hidePopup()">
+                    <label ng-mouseenter="showPopup('clientForm', 'Client Form', $event)" class="form-label mb-3">Client Form </label>
+                    <div class="popupDoc" ng-show="isHovered && activePopup === 'clientForm'" ng-style="popupStyle">
+                        <h4>{{popupHeading}}</h4>
+                        <ul>
+                            <ol>
+                                <li ng-repeat="doc in documents">{{ doc}}</li>
+                            </ol>
+                        </ul>
+                    </div>
+                    <input class="choose-input" type="file" id="clientForm" multiple ng-files="uploadFilesSave($files, 'clientForm')" name="clientForm" accept=".pdf" onchange="checkFiles(2, 1024, this)" required="">
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"> 
+                <button type="submit" class="form-button" ng-disabled="disableSubmit">Submit</button>
+            </div>
+            <div class="col-md-2 " style="margin-left: 40px;">
+                <a  href="{{uRl}}user_asBOM.html" >
+                    <button type="button"  class="form-button"  > Cancel </button>
+                </a>
+            </div> 
+        </div>
+    </form>
+</div>
+
+<!--///
+<form ng-submit="formdata()">
+
+    <div class="form-row mb-4 ">
+        <hr style="height: 1px; border: thin; background-color: #80C37D;  margin-bottom: 10px; width: 100%;">
+        <label style="text-align: left; font-size: 18px;" for="applicantName" class="form-label"> APPLICANT </label>
+    </div>
+
+    <div class="form-row mb-3 ">
+
+        <div class="col" >
+            <label for="accountType" class="form-label">Account Type :</label>
+            <input type="text" class="form-input selectedOpt"  ng-model="selectedAccOption"  readonly="">
+        </div>
+
+        <div class="col">
+            <label for="branchName" class="form-label">Branch Name :</label>
+            <select id="branchName" name="branchName" class="form-input ml-3" ng-model="branchName" required="">
+                <option value="" disabled selected  ><i class="center-align" style="color: #999;" >Select Branch Name</option>
+                    <option ng-repeat="option in branchlist" value="{{option}}">{{option}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-row mb-3 mr-md-auto  justify-content-center ">
+        <div class="col-sm-2 pt-1 ">
+            <label for="id" class="form-label ">Entity :</label>
+        </div>
+
+        <div class="col-10">    
+            <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}" id="entity" name="entity" class="form-control "  placeholder="Entity" ng-model="entity" required="">
+        </div>
+    </div>
+
+    <div class="form-row mb-3 mr-md-auto  justify-content-center ">
+        <div class="col-sm-2 pt-1 ">
+            <label for="id" class="form-label ">1st Applicant :</label>
+        </div>
+
+        <div class="col-10">    
+            <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}" id="applicant1" name="applicant1" class="form-control "  placeholder="First Applicant" ng-model="applicant1" required="">
+        </div>
+
+    </div>
+
+
+    <div class="form-row mb-3 mr-md-auto  justify-content-center " ng-show="showApp2" >
+        <div class="col-sm-2 pt-1 ">
+            <label for="id" class="form-label ">2nd Applicant :</label>
+        </div>
+
+        <div class="col ">
+            <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicant2" name="applicant2" class="form-control"  placeholder="Second Applicant" ng-model="applicant2">
+        </div>
+
+
+    </div>
+
+
+    <div class="form-row mb-3 mr-md-auto  justify-content-center " ng-show="showApp3" >
+        <div class="col-sm-2 pt-1 ">
+            <label for="id" class="form-label ">3rd Applicant :</label>
+        </div>
+
+        <div class="col ">
+            <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicant3" name="applicant3" class="form-control" placeholder="Third Applicant" ng-model="applicant3">
+        </div>
+
+    </div>
+
+    <div class="form-row mb-3 mr-md-auto  justify-content-center "  ng-show="showApp4">
+        <div class="col-sm-2 pt-1 ">
+            <label for="id" class="form-label ">4th Applicant :</label>
+        </div>
+
+        <div class="col ">
+            <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicant4" name="applicant4" class="form-control" placeholder="Fourth Applicant" ng-model="applicant3">
+        </div>
+
+    </div>
+
+    <div class="form-row mb-3 mr-md-auto  justify-content-center " ng-show="showApp5">
+        <div class="col-sm-2 pt-1 ">
+            <label for="id" class="form-label ">5th Applicant :</label>
+        </div>
+
+        <div class="col ">
+            <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicant5" name="applicant5" class="form-control" placeholder="Fifth Applicant" ng-model="applicant3">
+        </div>
+
+    </div>
+
+    button for add applicant
+    <div class="form-row mb-3" >
+        <button type="button" class="form-buttonf" ng-click="addApplicantTasc()">Add Applicant</button>
+    </div>
+
+
+
+    <div class="form-row mb-3 " >
+        <div class="col">
+            <div class="row">
+                <div class="col-4">
+                    <label for="adharNo" class="form-label" style="display:inline-block;">Aadhar Number :</label>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-4">
+
+                    <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo1" name="adharNo" class="form-inputf" ng-model="adharNo1" placeholder="Aadhar-1">
+                    <img id="info-icon_A1" class="imgsync" ng-click="aadharcheck(adharNo1)" src="image/sync.png" alt=""/>
+
+                </div>
+
+                2nd addhar
+                <div class="col-4 " ng-show="showApp2" >
+                                                        <label for="adharNo" class="form-label">Aadhar Number:</label>
+                    <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo2" name="adharNo2" class="form-inputf" ng-model="adharNo2" placeholder="Aadhar-2">
+                    <img id="info-icon_A2" class="imgsync" ng-click="aadharcheck(adharNo2)" src="image/sync.png" alt=""/>
+                </div>
+
+                / 3rd aadhar 
+                <div class="col-4 "  ng-show="showApp3">
+                                                        <label for="adharNo" class="form-label">Aadhar Number:</label>
+                    <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo3" name="adharNo3" class="form-inputf" ng-model="adharNo3" placeholder="Aadhar-3">
+                    <img id="info-icon_A3" class="imgsync" ng-click="aadharcheck(adharNo3)" src="image/sync.png" alt=""/>
+                </div>
+
+                <div class="col-4 mt-2"  ng-show="showApp4">
+                                                        <label for="adharNo" class="form-label">Aadhar Number:</label>
+                    <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo4" name="adharNo4" class="form-inputf" ng-model="adharNo4" placeholder="Aadhar-4">
+                    <img id="info-icon_A3" class="imgsync" ng-click="aadharcheck(adharNo4)" src="image/sync.png" alt=""/>
+                </div>
+
+                <div class="col-4 mt-2 "  ng-show="showApp5" >
+                                                        <label for="adharNo" class="form-label">Aadhar Number:</label>
+                    <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo5" name="adharNo5" class="form-inputf" ng-model="adharNo5" placeholder="Aadhar-5">
+                    <img id="info-icon_A3" class="imgsync" ng-click="aadharcheck(adharNo5)" src="image/sync.png" alt=""/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mb-3 mt-3 ">
+
+        <div class="col-6">
+            <label for="mobileNo" class="form-label">Mobile Number :</label>
+            <input type="tel"  title="Mobile Number must be 10 length."  pattern="[0-9]{10}" id="mobileNo" name="mobileNo" class="form-input ml-1" ng-model="mobileNo" required="">
+        </div>
+
+    </div>
+
+
+    <div class="form-row mb-3">
+        <hr style="height: 1px; border: thin; background-color: #80C37D;  margin-bottom: 10px; width: 100%;">
+        <label style="text-align: center; font-size: 18px;" for="applicantName" class="form-label"> DOCUMENTS </label>
+    </div>
+
+
+    <div class="form-row mb-3 justify-content-center" >
+        <div class="row ">
+
+            <div class="col-3 vertical_line wrap-doc-content">
+                <label class="form-label form-label-docs mb-3">Id proof</label>
+                <input class="choose-input" type="file" id="idProof" name="idProof" accept=".jpg, .jpeg, .png, .webp" onchange="checkFiles(10, 4096, this)" required=""  multiple="true">
+            </div>
+
+
+            <div class="col-3 vertical_line wrap-doc-content">
+                <label class="form-label form-label-docs mb-3">Address proof</label>
+                <input class="choose-input" type="file" id="addProof" name="addProof" accept=".jpg, .jpeg, .png, .webp" onchange="checkFiles(10, 4096, this)" required=""  multiple="true">
+            </div>
+
+
+            <div class="col-3 vertical_line wrap-doc-content">
+                <label class="form-label form-label-docs mb-3">PAN Card / Form-49A</label>
+                <input class="choose-input" type="file" id="pan" name="panCard" accept=".jpg, .jpeg, .png, .webp" onchange="checkFiles(10, 4096, this)" required=""  multiple="true">
+            </div>
+
+
+            <div class="col-3 vertical_line wrap-doc-content">
+                <label class="form-label form-label-docs mb-3">TASC documents</label>
+                <input class="choose-input" type="file" id="adhar" name="tascDoc" accept=".jpg, .jpeg, .png, .webp" onchange="checkFiles(10, 4096, this)" required=""  multiple="true">
+            </div>
+
+
+
+            <div class="col-3 vertical_line wrap-doc-content mt-3" >
+                 <div class="vertical_line docdiv2" style="width: 22%"> 
+                <label class="form-label form-label-docs mb-3">Other Docs</label>
+                <button id="info-icon">ℹ️</button>
+                <div id="popup" class="popup list-container">
+                    <div class="popup-content" >
+                        <span class="close" id="close-btn">❌</span>
+                        <h2>Other Documents List</h2>
+                        <dl><b>Saving Account</b></dl>
+                        <dt >Officially Valid
+                            Documents
+                            (OVDs) for
+                            Accounts of
+                            Individuals</dt>
+                        <dd>- Passport </dd>
+                        <dd>- Driving license with photo </dd>
+                        <dd>- Proof of possession of Aadhaar Number </dd>
+                        <dd>- Voter’s Identity Card issued by Election Commission of India </dd>
+                        <dd>- Job card issued by NREGA duly signed by an officer of the State  Government. </dd>
+                        <dd>- Letter issued by the National Population Register containing details of Name and Address. </dd><br>
+                        <dt>Deemed Officially
+                            Valid Documents,
+                            In case OVD does not
+                            contains current/
+                            updated address. (At
+                            least one document
+                            from the list is
+                            required.)</dt> 
+                        <dd>- Utility bill of any service provider i.e. electricity, telephone, postpaid mobile phone, piped gas, water bill (not more than two months old)</dd>
+                        <dd>- Property or Municipal Tax receipt</dd>
+                        <dd>- Pension or family pension payment orders (PPOs) issued to retired
+                            employees by Government Departments or Public Sector Undertakings, If
+                            they contain the address.</dd>
+                        <dd>- Letter of allotment of accommodation from employer issued by State or	Central Government departments, statutory or regulatory bodies, and public
+                            sector undertakings, scheduled commercial banks, financial institutions and
+                            listed companies. Similarly, leave and license agreements with such
+                            employers allotting official accommodation.</dd>
+
+
+                        <dl><b>Current Account</b></dl>
+                        <dt>Accounts of Sole
+                            Proprietary firms.</dt>
+                        <dd> Registration Certificate</dd>
+                        <dd>- Certificate/ license issued by the municipal authorities under Shop & Establishment
+                            Act,</dd>
+                        <dd>- Sales and income tax returns.</dd>
+                        <dd>- CST/ VAT/GST Certificate (Provisional/Final).</dd>
+                        <dd>- Certificate / registration document issued by Sales Tax / Service Tax / Professional
+                            Tax authorities.</dd>
+                        <dd>- IEC (Importer Exporter Code) issued to the proprietary concern by the office of
+                            DGFT or License/ certificate of practice issued in the name of proprietary concern
+                            by any professional body incorporated under statute.</dd>
+                        <dd>- Complete Income Tax return (not just the acknowledgement) in the name of Sole
+                            Proprietor where the Firm’s income is reflected, duly authenticated/ Acknowledged
+                            by the Income Tax Authorities.</dd>
+                        <dd>- Utility bills such as electricity, water, and landline telephone bills in the name of the
+                            proprietary concern.
+                            In case where the branches are satisfied that it is not possible to furnish two such
+                            documents from the above list, they would have the discretion to accept only one of those
+                            documents as activity proof. In such cases, the branches would have to undertake
+                            contact point verification, collect information to establish the existence of such firm,
+                            confirm, and satisfy itself that the business activity has been verified from the address of
+                            the proprietary concern. <br> <b>AND</b><br>
+                            -Any one of the OVDs along with PAN/ FORM60 of the proprietor.</dd>
+                        <br>
+                        <dt>Accounts of
+                            Partnership firms.
+                            (Registered)</dt>
+                        <dd>- Registration certificate.</dd>
+                        <dd>- Partnership deed.</dd>
+                        <dd>- PAN No. of the Partnership Firm.</dd>
+                        <dd>- Any one of the OVDs and PAN/ FORM60 of the person holding an Attorney to
+                            transact on its behalf with his/ her photograph.</dd>
+
+                        <br>
+                        <dt>Accounts of Trusts</dt>
+                        <dd>- Registration Certificate.</dd>
+                        <dd>- Trust Deed.</dd>
+                        <dd>- PAN/ FORM60 of Entity.</dd>
+                        <dd>- Any one of the OVDs and PAN/FORM60 of the person holding an Attorney to
+                            transact on its behalf with his/her photograph.</dd>
+
+                        <br>
+                        <dt>Accounts of
+                            Unincorporated
+                            Associations or body
+                            of individuals
+                            includes unregistered partnership firm/
+                            trusts and societies.</dt>
+                        <dd>- Resolution of the Managing body of such association or body of individuals.</dd>
+                        <dd>- PAN/ FORM60 of Unincorporated Associations or body of individuals</dd>
+                        <dd>- Power of Attorney granted to transact on its behalf.</dd>
+                        <dd>- Any one of the OVDs and PAN/ FORM60 of the Office bearers / Signatories and
+                            persons holding Power of Attorney, if any with his/her photograph in respect of the
+                            person holding an Attorney to transact on its behalf.</dd>
+                        <dd>
+                            -  Any one of the below mentioned list of documents to collectively establish the legal
+                            existence of such an associations or body of individuals.
+                            <ul>
+                                <li>Partnership Deed/ Trust Deed/ Bye Laws</li>
+                                <li>Certificate/ license issued by the municipal authorities under Shop &
+                                    Establishment Act.</li>
+                                <li>Sales Tax Returns.</li> 
+                                <li>CST/ VAT/ GST certificates (Provisional/ Final).</li> 
+                                <li>Certificate/ registration document issued by Sales Tax/ Service Tax/
+                                    Professional Tax authorities.</li>
+                                <li>License/ certificate of practice issued in the name of proprietary concern by
+                                    any professional body incorporated under statute.</li>
+                                <li>Complete Income Tax return (not just the acknowledgement) in the name of
+                                    Sole Proprietor where the Firm’s income is reflected, duly authenticated/
+                                    Acknowledged by the Income Tax Authorities.</li>
+                                <li> Utility bills such as electricity, water, and landline telephone bills in the name
+                                    of the concerns.</li>	
+                            </ul>
+                        </dd>
+                    </div>
+                </div>
+                <script>
+                     // ... (existing code)
+
+                     document.addEventListener('DOMContentLoaded', function () {
+                         // Get the elements
+                         const infoIcon = document.getElementById('info-icon');
+                         const popup = document.getElementById('popup');
+                         const closeBtn = document.getElementById('close-btn');
+                         // Show the popup when info icon is clicked
+                         infoIcon.addEventListener('click', function (event) {
+                             // Prevent form submission when clicking the info icon
+                             event.preventDefault();
+                             event.stopPropagation();
+                             popup.style.display = 'block';
+                         });
+                         // Close the popup when the close button is clicked
+                         closeBtn.addEventListener('click', function () {
+                             popup.style.display = 'none';
+                         });
+                         // Close the popup if the user clicks outside the popup
+                         window.addEventListener('click', function (event) {
+                             if (event.target === popup) {
+                                 popup.style.display = 'none';
+                             }
+                         });
+                     });
+                </script>
+                <input class="choose-input" type="file" id="otherDoc" name="otherDoc" accept=".pdf" onchange="checkFiles(10, 4096, this)" required="" multiple="true"> 
+                 </div> 
+            </div>
+
+
+            <div class="col-2 wrap-doc-content mt-3">
+                <label class="form-label mb-3">Client Form </label>
+                <input class="choose-input" type="file" id="applicationForm" name="applicationFormf" accept=".pdf" onchange="checkFiles(2, 1024, this)" required="">
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"> 
+            <button type="submit" class="form-button" >Submit</button>
+        </div>
+        <div class="col-md-2 " style="margin-left: 40px;">
+            <a  href="{{uRl}}user_asBOM.html" >
+                <button type="button"  class="form-button"  > Cancel </button>
+            </a>
+        </div> 
+    </div>
+</form>
+
+<div ng-show="forAadharDetails" class="popupAadhar list-container">
+    <div style=" color: black; text-align: left;">
+        <div style="position: sticky; top: 0;">
+            <span class="close" ng-click="closeAadharDetails()">❌</span>
+            <h2 class="form-heading" >KYC Verification Details</h2>
+        </div>
+
+        <table class="table" style="border: solid #80C37D thin; border-radius: 5px;" >
+            <thead>
+                <tr class="cardviewth" >
+                    <th scope="col">Ack_No.</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Aadhar No.</th>
+                    <th scope="col">Acc Type</th>
+                    <th scope="col">Branch</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Uploaded By</th>
+                    <th scope="col">Approved By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="cardviewtr" ng-repeat="record in list">
+                    <td scope="row">{{record.code.substring(5, 15)}}</td>
+                    <td>{{record.applicantFirst}}</td>
+                    <td>{{record.adharNoFirst}}</td>
+                    <td>{{record.accountType}}</td>
+                    <td>{{record.branchName}}</td>
+                    <td>{{record.status}}</td>
+                    <td>{{record.uploadedBy}}</td>
+                    <td>{{record.approvedBy}}</td>
+                </tr>
+        </table>
+    </div>
+</div>-->

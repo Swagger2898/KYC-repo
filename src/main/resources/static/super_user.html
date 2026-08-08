@@ -1,0 +1,861 @@
+<!--@Author - Ritik .k. Satpute-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Ritik .k. satpute" >
+        <meta name="viewport" content="width=device-width, initial-scale=0.8">
+        <script src="libAndJs/angular.min.js" type="text/javascript"></script>
+        <script src="libAndJs/jquery-3.6.0.min.js" type="text/javascript"></script>
+        <script src="libAndJs/xlsx.full.min.js" type="text/javascript"></script>
+        <link href="libAndJs/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="libAndJs/css2.css" rel="stylesheet" type="text/css"/>
+        <script src="js/super_user.min.js" type="text/javascript"></script>
+        <title>Super User</title>        
+        <style>
+            /* Styles for the popup */
+            body{
+                zoom: 0.9;
+                -moz-transform: scale(0.9);
+                transform-origin: 0 0;
+            }
+            .form-input {
+                width: 80%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .form-input-short {
+                width: 90%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                /*background-color: #f0fce6;*/
+                background-color: #f7fcf2;
+            }
+            .form-input-userType {
+                width: 28%;
+                padding: 6px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                /*background-color: #f0fce6;*/
+                background-color: #fff;
+                margin-left: 20px;
+            }
+            .form-input-selectuser {
+                width: 72%;
+                padding: 6px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                /*background-color: #f0fce6;*/
+                background-color: #fff;
+                /*margin-left: 20px;*/
+                height: 40px;
+                font-family: 'Rajdhani', sans-serif;
+            }
+
+            .container {
+                max-width: 98%;
+                margin: 0 auto;
+                margin-top: 10px;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .containernew {
+                width: 100%;
+                margin: 0 auto;
+                /*margin-top: 10px;*/
+                background-color: #fff;
+                padding: 15px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                display: inline-block;
+            }
+            .document {
+                margin-bottom: 20px;
+            }
+
+            .document-label {
+                font-weight: bold;
+            }    
+
+            .attractive-button {
+                background-color: #91E246; 
+                color: black; 
+                border: none; 
+                padding: 6px 20px; 
+                border-radius: 5px; 
+                cursor: pointer; 
+            }
+
+            /* Add hover effect */
+            .attractive-button:hover {
+                background-color: #007bff; 
+            }
+            table {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0 10px;
+            }
+            td, th {
+                padding: 9px; 
+            }
+            h2 {
+                background-color: #80C37D; 
+                color:black;
+                padding: 25px;
+                border-radius: 5px; 
+                margin-left: -20px;
+                margin-right: -20px;
+                margin-top: -20px;
+            }
+            .rcorners {
+                border-radius: 25px;
+                border: 2px solid #C7E7C5;
+                padding: 8px;
+                height: 40px;
+            }
+            .rcornersimg {
+                border-radius: 10px;
+                border: 2px solid #80C37D;
+                padding: 0px;
+                height:40px;
+                width:50px;
+            }
+            .rcornersimgE {
+                border-radius: 15px;
+                border: 2px solid #80C37D;
+                padding: 0px;
+                height:80px;
+                width:100px;
+            }
+            /*            .alitd{
+                            text-align: center;
+                        }*/
+            body{
+                background-image: url('image/bgImg_half.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+                width: 100%;
+                height: 100%;
+            }
+            img{
+                cursor: pointer; 
+            }
+            .idpoint{
+                cursor: pointer; 
+            }
+            .recordcontainer {
+                max-width: 70%;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-heading {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                border-radius: 5px; 
+                margin-left: -6px;
+                margin-right: -6px;
+                margin-top: -6px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: column;
+            }
+            .form-label {
+                text-align: left;
+                font-weight: bold;
+            }
+            .form-button {
+                background-color: #C7E7C5;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                /*padding: 10px 20px;*/
+                cursor: pointer;
+                align-self: flex-end; /* Align the button to the right */
+            }
+            .form-buttonGG {
+                background-color: #85b87e;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                /*padding: 10px 20px;*/
+                cursor: pointer;
+                align-self: flex-end; /* Align the button to the right */
+            }
+            .form-buttonRR {
+                background-color: #be4347;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                /*padding: 10px 20px;*/
+                cursor: pointer;
+                align-self: flex-end; /* Align the button to the right */
+            }
+            .form-buttonGr {
+                background-color: #85B87E;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 5px;
+                cursor: pointer;
+                align-self: flex-end; /* Align the button to the right */
+                font-family: monospace;
+                font-size: 12px;
+            }
+            .form-buttonRe {
+                background-color: #BE4347;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 5px;
+                cursor: pointer;
+                align-self: flex-end; /* Align the button to the right */
+                font-family: monospace;
+                font-size: 12px;
+            }
+
+            .form-button:hover {
+                background-color: #0056b3;
+            }
+            .form-buttonGr:hover {
+                background-color: #0056b3;
+            }
+            .form-buttonRe:hover {
+                background-color: #0056b3;
+            }
+            h1.form-heading {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 20px;
+                background-color: #80C37D; 
+                color: black ; 
+                padding: 10px; 
+            }
+            .form-button{
+                display: inline-block;
+                /*                margin-top: 15px;
+                                padding: 10px 20px;*/
+                background-color: #C7E7C5;
+                color: black;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+            .button:hover {
+                background-color: #91E246;
+            }
+            .form-group1 {
+                display: inline-block;
+                width: 250px; /* Adjust the width as needed */
+                /* Other CSS styles for .form-group1 */
+            }
+            .cardviewtr{
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                background-color: #C7E7C5;
+                /*                border-top-left-radius: 10px;
+                                border-top-right-radius: 10px;*/
+                /*overflow: hidden;*/
+
+            }
+            .cardviewth{
+                /*                border-radius: 25px;
+                                border: 2px solid #C7E7C5;*/
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                background-color: #80C37D;
+                /*overflow: hidden;*/
+            }
+            .searchbar{
+                width: 80%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;    
+            }
+            .tablecontainer{
+                width: 100%;
+            }
+            .ownfield{
+                width: 40%;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .vertical_line{
+                border-right-style: dashed;
+                border-right-width:2px; 
+                border-right-color: #80C37D;
+            }
+            .docdivIn_F{
+                text-align: center;
+            }
+            .docdivIn_S{
+                padding-left: 50px;
+                padding-right: 45px;
+            }
+            .docdiv{
+                display: inline-block;
+                width: 24%;
+                /*padding-left: 10px;*/
+            }
+            /*            .docdiv2{
+                            display: inline-block;
+                            padding-left: 10px;
+                        }
+                        .docdiv3{
+                            display: inline-block;
+                            padding-left: 10px;
+                        }*/
+            /* Style the header */
+            header {
+                background-color: #80C37D; 
+                color: #fff;
+                padding: 12px;
+                text-align: center;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-radius: 5px; 
+                margin-left: -9px;
+                margin-right: -9px;
+                margin-top: -9px;
+            }
+
+            /* Style the buttons */
+            .header-btn {
+                background-color: #555;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            .header-btn.help-icon {
+                padding: 8px 16px;
+                background-color: #007bff; /* Change this to the desired help icon background color */
+            }
+            .headerdiv{
+                background-color: #91E246; 
+                color:black;
+                border-radius: 5px; 
+                margin-left: -20px;
+                margin-right: -20px;
+                margin-top: -20px;
+                width: 100%;
+            }
+            .titlename{
+                font-size: 40px; 
+                font-weight: 600;
+                color: white; 
+                font-family: 'Roboto Slab', serif;
+            }
+
+            /* Styles for the popup */
+            .popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px; 
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+                z-index: 999;
+            }
+
+            .close {
+                position: absolute;
+                top: 10px;
+                right: 0px;
+                cursor: pointer;
+            }
+
+            /* Style for the info icon */
+            #info-icon {
+                font-size: 12px;
+                cursor: pointer;
+            }
+            dt{
+                font-family: sans-serif;
+            }
+            .list-container {
+                height: 500px; /* Adjust as needed */
+                overflow-y: auto;
+                scrollbar-width: thin; /* For Firefox */
+                scrollbar-color: #888 #f1f1f1; /* For Firefox */
+            }
+
+            .list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .list-item {
+                padding: 10px;
+                border-bottom: 1px solid #ccc;
+            }
+
+            /* CSS for webkit-based browsers (Chrome, Safari) */
+            .list-container::-webkit-scrollbar {
+                width: 12px;
+            }
+
+            .list-container::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+
+            .list-container::-webkit-scrollbar-thumb {
+                background: #888;
+                border-radius: 6px;
+            }
+
+            .list-container::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+            .padbutton{
+                padding: 10px 20px;
+            }
+            .iconlook{
+                padding: 0px;
+                height:15px;
+                width:15px;
+            }    
+            .table-view{
+                height: 440px;
+                overflow-y: auto;
+                width: 100%;
+            }
+            /*            thead th {
+                            background-color: #80C37D;
+                        }*/
+            /*userName */
+            .user_name{
+                text-align: center;
+                width: 16%; 
+                /*max-width: 20%;*/
+                display: inline-block;
+                color: black;
+                border-radius: 25px;
+                border: 2px solid #80C37D;
+                padding: 4px;
+                height: 38px;
+                background-color: #C7E7C5;
+                font-weight: 500;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin-bottom: 5px;
+            }
+            /*/// ----->*/
+            .left-branchContainer{
+                width: 44%;
+                float: left;
+                padding: 12px;
+                border: 2px solid #80C37D;
+                border-radius: 7px;
+                background-color: #C7E7C5;
+                height: 400px;
+                /*padding-left: 8px;*/
+                /*display: inline-block;*/
+                margin-left: 28px;
+
+            }
+            .right-branchContainer{
+                width: 44%;
+                float: right;
+                padding: 20px;
+                border: 2px solid #80C37D;
+                border-radius: 7px;
+                background-color: #C7E7C5;
+                height: 400px;
+                /*             padding-left: 20px;
+                             padding-top: */
+                /*display: inline-block;*/
+                margin-right: 28px;
+
+            }
+
+            .labell {
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            .options-container {
+                height: 235px; /* Adjust the maximum height as needed */
+                overflow-y: auto;
+                border: 4px solid #e5ffcf;
+                padding: 8px;
+                margin-bottom: 16px;
+                border-radius: 8px;
+                background-color: #f7fcf2;
+            }
+            .selected-options-container {
+                height: 235px; /* Adjust the maximum height as needed */
+                overflow-y: auto;
+                border: 4px solid #e5ffcf;
+                border-radius: 8px;
+                padding: 8px;
+                /*margin-bottom: 16px;*/
+                background-color: #f7fcf2;
+                /*margin-left: 36px;*/
+            }
+            .temp > span {
+                background-color: #e5ffcf;
+                font-size: 18px;
+                left: 2%;
+                position: absolute;
+                top: -15px;
+                padding: 5px;
+                border: 1px solid #e5ffcf;
+                border-radius: 8px;
+                font-family: 'Libre Baskerville', serif;
+
+            }
+            .temp {
+                border: 1px solid #C7E7C5;
+                border-radius: 10px;
+                margin-top: 30px;
+                padding: 2px;
+                position: relative;
+                background-color: white;
+                margin-left: 14px;
+                margin-right: 14px;
+            }
+            .user-info{
+                font-family: 'Libre Baskerville', serif;
+                font-size: 16px;
+            }
+
+            /* Style for the active button */
+            .active {
+                background-color: #4CAF50;
+                color: white;
+            }
+        </style>
+    </head>
+    <body ng-app="myApp" ng-controller="cont">
+        <div class="container">
+            <div>
+                <header>
+                    <div>
+                        <img src="image/logo.png" alt="Company Logo" style="width: 70px; height: 61px;">
+                        <p style="color: #555; font-weight: bold; font-size: 12px;" id="timestamp"></p>
+                    </div>
+                    <div>
+                        <h1 class="titlename">KYC Verification System</h1>
+                    </div>
+                    <div>
+                        <button class="header-btn" ng-click="logout()">Logout</button>
+                        <button id="info-icon" class="header-btn help-icon" style="font-size: 18px;">?</button>
+                        <div id="popup" class="popup list-container">
+                            <div style=" color: black; text-align: left;">
+                                <div style="position: sticky; top: 0;">
+                                    <span class="close" id="close-btn">❌</span>
+                                    <h2 class="form-heading" >Help</h2>
+                                </div>
+
+                                <table style="border: solid #80C37D thin;" >
+                                    <tr>
+                                        <th>Problem</th>
+                                        <th>Solution</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Pop Document View (Esc)</td>
+                                        <td>Press Ctrl + W</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Verify Aadhar Existence</td>
+                                        <td>Use the search bar and type the Aadhar number</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Download Pre-uploaded Document</td>
+                                        <td>Follow below steps :
+                                            <ol>
+                                                <li>Search the Aadhar number or name</li>
+                                                <li>Right-click on the document in the list view</li>
+                                                <li>Select "Save Image As"</li>
+                                                <li>STOP.</li>
+                                            </ol>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Standardizing File Names</td>
+                                        <td>Branch Operations Manager (BOM) should rename documents to match the document number</td>
+                                    </tr>
+                                    <!--                                    <tr>
+                                                                            <td>How to compress pdf ?</td>
+                                                                            <td>Follow below steps :
+                                                                                <ol>
+                                                                                    <li> Go to google.</li>
+                                                                                    <li> Search any pdf compressor for ex: I love PDF.</li>
+                                                                                    <li> In I Love PDF, click on Compress PDF from the Dashboard.</li>
+                                                                                    <li> Click on "Select PDF files". </li>
+                                                                                    <li> Choose the "PDF files" .</li>
+                                                                                    <li> Click on "Compress PDF". </li>
+                                                                                    <li> The PDF will download automatically. If not then click on "Download Compressed PDF". </li>
+                                                                                    <li> STOP. </li>
+                                                                                    <a href="https://www.ilovepdf.com/desktop" target="_blank"> https://www.ilovepdf.com/desktop </a> 
+                                                                                     </ol>
+                                                                                Otherwise, you can use "Cam Scanner" for scanning documnents.
+                                                                                
+                                                                            </td>
+                                                                        </tr>-->
+                                    <tr>
+                                        <td>How to format Excel Sheet adharNo Cell ?</td>
+                                        <td>Follow below steps :
+                                            <ol>
+                                                <li>Right click on the header of the selected column.</li>
+                                                <li>Click on "Format Cells..." from the list view.</li>
+                                                <li>Click on "Custom" .</li>
+                                                <li>Now Select "0" and press OK button.</li>
+                                                <li>STOP.</li>
+                                            </ol></td>
+                                    </tr>
+                                    <tr>
+                                        <td>On clicking otherDoc not showing multiple Uploaded DOCs ?</td>
+                                        <td>Follow below steps :
+                                            <ol>
+                                                <li>On clicking otherDocs preview it will show a pop-ups block in the browser search bar .</li>
+                                                <li>Click on the pop-ups  block .</li>
+                                                <li>Select the option "Always allow pop-ups and redirects from the http://.....</li>
+                                                <li>Now Click on  "Done" button.</li>
+                                                <li>STOP.</li>
+                                            </ol></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <a href="image/KycVerificationSystem.pdf" target="_blank">For more information click here ....</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <script>
+                                    // Get the elements
+                                    const infoIcon = document.getElementById('info-icon');
+                                    const popup = document.getElementById('popup');
+                                    const closeBtn = document.getElementById('close-btn');
+                                    // Show the popup when info icon is clicked
+                                    infoIcon.addEventListener('click', () => {
+                                        popup.style.display = 'block';
+                                    });
+                                    // Close the popup when the close button is clicked
+                                    closeBtn.addEventListener('click', () => {
+                                        popup.style.display = 'none';
+                                    });
+                                    // Close the popup if user clicks outside the popup
+                                    window.addEventListener('click', (e) => {
+                                        if (e.target === popup) {
+                                            popup.style.display = 'none';
+                                        }
+                                    });
+                        </script>
+                    </div>
+                </header>
+                <script>
+                            // Function to display and continuously update the timestamp
+                            function updateTimestamp() {
+                                var now = new Date();
+                                var date = now.toLocaleDateString();
+                                var time = now.toLocaleTimeString();
+
+                                // Display date and time on separate lines
+                                var timestamp = date + " , " + time;
+
+                                document.getElementById('timestamp').innerHTML = timestamp;
+                            }
+
+                            // Call the function initially and set up an interval to update the timestamp every second
+                            updateTimestamp();
+                            setInterval(updateTimestamp, 1000); // Update every second
+                </script>
+            </div>
+            <br>
+            <div style="margin-bottom: 6px;">
+                <h3 style="width: 83%;display: inline-block;">Super User (Admin)</h3> 
+                <div class="user_name" >User : {{userRecord.userName}}</div> 
+            </div>    
+            <div class="table-view" ng-show="userContainerVisible">
+                <table>
+                    <thead>
+                        <tr>
+                            <td colspan="2" class="rcorners">
+                                <input style="vertical-align: middle;" type="image" src="image/search.png" width="20" height="20"/>&nbsp;&nbsp;&nbsp;
+                                <input class="searchbar" type="text"  ng-model="search"/>
+                            </td>
+                            <td colspan="2">
+                                <button type="button" class="form-button attractive-button" ng-click="exportToExcel()">Export To Excel</button>
+                                <button type="button" class="form-button attractive-button" ng-click="branchAccess()" >Branch Access</button>
+                            </td>
+                            <td colspan="3" style="text-align: right;">
+                                <button type="button" class="form-button attractive-button" onclick="switchList('Accepted')" data-list="Accepted" ng-click="listForAccept()" ng-model="Accepted">{{Accepted}}</button>
+                                <button type="button" class="form-button attractive-button" onclick="switchList('Rejected')" data-list="Rejected" ng-click="listForReject()" ng-model="Rejected">{{Rejected}}</button>
+                                <button type="button" class="form-button attractive-button" onclick="switchList('Pending')" data-list="Pending" ng-click="listForPending()" ng-model="Pending">{{Pending}}</button>
+                                <button type="button" class="form-button attractive-button" onclick="switchList('Terminated')" data-list="Terminated" ng-click="listForTerminate()" ng-model="Terminated">{{Terminated}}</button>
+                                <button type="button" class="form-button attractive-button" onclick="switchList('ResetPassword')" data-list="ResetPassword" ng-click="listForResetpass()" ng-model="Reset_Password">{{Reset_Password}}</button>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tr class="cardviewth" style="position: sticky; position: -webkit-sticky; top: 0;">
+                        <!--<tr class="cardviewth" >-->
+                        <th style="width: 4%">ID</th>
+                        <th style="width: 12%">User Name</th>
+                        <th style="width: 12%">Branch</th>
+                        <th style="width: 8%">User Type</th>
+                        <th style="width: 6%">Status</th>
+                        <th style="width: 26%">Remark</th>
+                        <th style="width: 18%">Action</th>
+                        <!--</tr>-->
+                    </tr>
+                    <tr class="cardviewtr" ng-repeat="record in list| continuousSubstringFilter:search:['id','userName', 'branchName','userType','userIdStatus']">
+                        <td >{{record.id}}</td>
+                        <td >{{record.userName}}</td>
+                        <td >{{record.branchName}}</td>
+                        <td >{{record.userType}}</td>
+                        <td >{{record.userIdStatus}}</td>
+                        <td>
+                            <input style="width: 90%" type="text" id="remark" name="remark" class="ownfield" value="{{record.remark}}" ng-model="record.remark">
+                        </td>
+                        <td>
+                            <button type="button" class="form-buttonGr" ng-click="onUserEditA(record)" id="Accept" ng-show="acceptVisible">Accept</button>&nbsp;&nbsp;
+                            <button type="button" class="form-buttonRe" ng-click="onUserEditR(record)" id="Reject" ng-show="rejectVisible">Reject</button>
+                            <button type="button" class="form-buttonRe" ng-click="onUserEditT(record)" id="Reject" ng-show="terminateVisible">Terminate</button>
+                            <button type="button" class="form-buttonRe" ng-click="onUserEditD(record)" id="Reject" ng-show="deleteVisible">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="containernew" ng-show="branchContainerVisible" >
+                <form>
+                    <div class="left-branchContainer">
+                        <!--<form id="myForm"> style="width: 40%;"-->
+                        <div style="width: 100%;">
+                            <div style="text-align: right; font-size: 20px; color: #007006; font-family: 'Rajdhani', sans-serif;">
+                                <button type="button" class="form-buttonGG attractive-button" ng-click="exportToExcel_COPs()">Export To Excel</button>
+                            </div>
+                        </div>
+                        <div class="temp">
+                            <span style="font-family: 'Libre Baskerville', serif;"> User Information : </span>
+                            <table class="user-info">
+                                <tr>
+                                    <td>
+                                        User ID : 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="id" name="id" class="form-input-short" ng-model="id" readonly="" required="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        User Name : 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="userName" name="userName" class="form-input-short" ng-model="userName" readonly="" required="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Branch Name : 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="branchName" name="branchName" class="form-input-short" ng-model="branchName" readonly="" required="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        User Id Status : 
+                                    </td>
+                                    <td>
+                                        <input type="text" id="userIdStatus" name="userIdStatus" class="form-input-short" ng-model="userIdStatus" readonly="" required="">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="right-branchContainer">
+                        <div style="width: 100%; display: inline-block;">
+                            <div style="width: 100%; margin-bottom: 12px; margin-left: 9px;">
+                                <div style="width: 48%; display: inline-block;">
+                                    <label  style="font-size: 20px; color: #007006;font-family: 'Rajdhani', sans-serif;" for="selectedOptionForUser">User Type :</label>
+                                    <select class="form-input-selectuser" ng-model="selectedOptionForUser" ng-change="selectedUserType()">
+                                        <option value="" disabled selected ><i class="center-align" style="color: #999;" >Select The User Type</i></option>
+                                        <option value="COPs">COPs</option>
+                                        <option value="BOM">BOM</option>
+                                    </select>
+                                </div>  
+                                <div style="width: 48%; display: inline-block; margin-left: 16px;">    
+                                    <label  style="font-size: 20px; color: #007006;font-family: 'Rajdhani', sans-serif;" for="selectedOption">User Name :</label>
+                                    <select class="form-input-selectuser" ng-model="selectedOption" ng-change="showSelectedValue()">
+                                        <option value="" disabled selected ><i class="center-align" style="color: #999;" >Select The User Name</i></option>
+                                        <option ng-repeat="option in acceptedlist" value="{{option.id}}">{{option.userName}}</option>
+                                    </select>
+                                </div>
+                            </div>  
+                            <div class="options-container" style="width: 45%; display: inline-block; float: left; margin-left: 9px">
+                                <label class="labell" ng-repeat="option in options">
+                                    <input type="checkbox" ng-model="optionsArray[option]" ng-change="updateSelectedOptions(option)"> {{ option}}
+                                </label>
+                            </div>
+                            <div class="selected-options-container" ng-show="selectedOptions.length > 0" style="width: 45%; display: inline-block; margin-left: 40px;">
+                                <strong>Selected Options:</strong>
+                                <ul>
+                                    <li ng-repeat="selectedOption in selectedOptions">{{ selectedOption}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="width: 100%; margin-left: 9px;">
+                            <button class="form-buttonGG" type="button" ng-click="submitForm()">Submit</button>
+                            <button class="form-buttonRR" type="button" ng-click="loadpage()">Cancel</button>
+                        </div>    
+                    </div>
+                </form>
+            </div>
+        </div> 
+        <br>
+        <div style="border-radius: 4px; margin-left: 16px; margin-right: 16px; background-color: #004516; color: white; font-size: 16px; text-align: center; opacity: 0.5; ">
+            ©2024. Sahayog Multi-State Credit Co-operative Society Ltd. – All rights reserved.(PV 1.1)
+        </div>
+        <script>
+
+                    ///session tinme out code here
+                    var idleTimeout = 900000; // 5 minutes in milliseconds
+                    var idleTimer;
+
+                    function resetTimer() {
+                        clearTimeout(idleTimer);
+                        idleTimer = setTimeout(logout, idleTimeout);
+                    }
+
+                    function logout() {
+                        window.localStorage.removeItem("super_user");
+                        location.reload();
+                        console.log("User automatically logged out due to inactivity.");
+                    }
+
+                    // Initial setup
+                    resetTimer();
+
+                    // Listen for user activity
+                    window.addEventListener('mousemove', resetTimer);
+                    window.addEventListener('keydown', resetTimer);
+                    window.addEventListener('scroll', resetTimer);
+        </script>
+    </body>
+</html>

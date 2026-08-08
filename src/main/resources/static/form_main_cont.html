@@ -1,0 +1,323 @@
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Ritik .k. satpute" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mandatory KYC Upload</title>
+        <script src="libAndJs/popper.min.js" type="text/javascript"></script>
+        <script src="libAndJs/jquery-3.6.0.min.js" type="text/javascript"></script>
+        <script src="libAndJs/bootstrap.min_4.5.2.js" type="text/javascript"></script>
+        <script src="libAndJs/angular.min.js" type="text/javascript"></script>
+        <link href="libAndJs/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/formCss.css" rel="stylesheet" type="text/css"/>
+        <script src="js/modules/kyc.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycJointSaving.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycPartnership.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycPubpvt.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycSavingCurrent.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycSoleProprietorship.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycTasc.module.min.js" type="text/javascript"></script>
+        <script src="js/form_main_cont.min.js" type="text/javascript"></script>
+        <script>
+            function checkFiles(maxFiles, maxTotalSizeKB, inputElement) {
+            var files = inputElement.files;
+            var maxTotalSizeBytes = maxTotalSizeKB * 1024; // Convert KB to Bytes
+
+            if (files.length > maxFiles) {
+            alert(`You can only upload a maximum of ${maxFiles} files.`);
+            inputElement.value = ""; // Reset the file input
+            return;
+            }
+
+            var totalSize = 0;
+            for (var i = 0; i < files.length; i++) {
+            totalSize += files[i].size;
+            }
+
+            if (totalSize > maxTotalSizeBytes) {
+            alert(`Total file size exceeds the limit of ${maxTotalSizeKB} KB.`);
+            inputElement.value = ""; // Reset the file input
+            return;
+            }
+
+            }
+        </script>
+    </head>
+    <body ng-app="mainApp" ng-controller="formMainController">
+        <div class="loader" ng-show="isLoading"></div>
+        <div class="container col-md-7 mt-3">
+            <div class="row">
+                <div class ="col-md-12 ">
+                    <div class="p-1">
+                        <h1 class="form-heading ">KYC FORM</h1>
+                    </div>
+                    <div class="my-card p-3"> 
+                        <div class="row"  style=" margin-top: -20px; margin-left: -12px;">
+                            <div class="col-6">
+                                <label for="accountType" class="form-label">Account Type  : </label>
+                                <select id="accountType" name="accountType" class="form-input adjSelect" ng-change="changeForm(accountType)" ng-model="accountType" required="">
+                                    <optgroup label="Saving Account">
+                                        <option value="Silver Saving">Silver Saving</option>
+                                        <option value="Normal Saving">Normal Saving</option>
+                                    </optgroup>
+                                    <optgroup label="Joint Saving Account">
+                                        <option value="Joint Silver Saving">Joint Silver Saving</option>
+                                        <option value="Joint Normal Saving">Joint Normal Saving</option>
+                                    </optgroup>
+                                    <optgroup label="Individual Current Account">
+                                        <option value="Current Wealth">Current Wealth</option>
+                                        <option value="Current Gold">Current Gold</option>
+                                        <option value="Normal Current">Normal Current</option>
+                                    </optgroup>
+                                    <optgroup label="Non-Individual Current Account">
+                                        <option value="Sole Proprietorship">Sole Proprietorship</option>
+                                        <option value="Partnership">Partnership</option>
+                                        <option value="Public_Private LTD Company">Public/Private LTD Company</option>
+                                        <option value="TASC">TASC</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div style="margin-top: -12px; margin-left: auto;">
+                                <img style="width: 70px; height: 40px; margin-right: 10px;" src="image/Pan_img.webp" alt="" ng-click="showPanKYC()"/>
+                                <img src="image/aadhaar.png" alt="" ng-click="showOKYC()"/>
+                            </div>
+                        </div>
+
+
+
+                        <div ng-show="showSilverSaving"  ng-controller="silverSavingCont"
+                             ng-include="'form/silverSaving.html'"> 
+                        </div>
+
+                        <div ng-show="showNormalSaving" ng-controller="normalSavingCont"
+                             ng-include="'form/normalSaving.html'"> 
+
+                        </div>
+
+                        <div ng-show="showJointSilverSaving"  ng-controller="jointSilverSavingCont"
+                             ng-include="'form/jointSilverSaving.html'"> 
+
+                        </div>
+
+                        <div ng-show="showJointNormalSaving"  ng-controller="jointNormalSavingCont"
+                             ng-include="'form/jointNormalSaving.html'"> 
+
+                        </div>
+
+                        <div ng-show="showCurrentWealth"  ng-controller="currentWealthCont"
+                             ng-include="'form/currentWealth.html'"> 
+
+                        </div>
+
+                        <div ng-show="showCurrentGold"  ng-controller="currentGoldCont"
+                             ng-include="'form/currentGold.html'"> 
+
+                        </div>
+
+                        <div ng-show="showNormalCurrent"  ng-controller="normalCurrentCont"
+                             ng-include="'form/normalCurrent.html'"> 
+
+                        </div>
+
+                        <div ng-show="showSoleProprietorship" ng-controller="soleProprietorshipCont"
+                             ng-include="'form/soleProprietorship.html'"> 
+
+                        </div>
+
+                        <div ng-show="showPartnership" ng-controller="partnershipCont"
+                             ng-include="'form/partnership.html'"> 
+
+                        </div>
+
+                        <div ng-show="showPublic_Pvt"  ng-controller="public_PvtCont"
+                             ng-include="'form/public_Pvt.html'"> 
+
+                        </div>
+
+                        <div ng-show="showTASC"  ng-controller="tascCont"
+                             ng-include="'form/tasc.html'"> 
+
+                        </div>
+
+                    </div>
+                </div>
+                <!--OKYC popup-->
+                <div class="container mt-5 modal-content" ng-show="aadhaarCardshow">
+                    <div>
+                        <div style="width: 40%; left:30%; right: 30%; top: 30;" class="modal" id="aadharModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+
+                            <div class="card p-4" >
+                                <div class="modal-body">
+                                    <h3 class="card-title">Aadhaar Verification</h3>
+                                    <form ng-submit="sendOtp()">
+                                        <div class="form-group">
+                                            <label style="font-size: larger; font-weight: 500;" for="aadhaar">Aadhaar:</label>
+                                            <input type="text" class="form-control" id="aadhaar" ng-model="aadhaar" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" ng-disabled="disSendOtp">Send OTP</button>
+                                        <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal w-100" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                        <div class="modal-dialog w-100" role="document">
+                            <div class="modal-content w-100">
+                                <div class="modal-header" style="background-color:#80C37D;">
+                                    <h5 style="color:black; font-size: x-large; font-weight: 600; " class="modal-title" id="otpModalLabel">Enter OTP</h5>
+
+                                </div>
+                                <div class="modal-body">
+                                    <form ng-submit="verifyOtp()">
+                                        <div class="form-group">
+                                            <label for="otp">OTP:</label>
+                                            <input type="text" class="form-control" id="otp" ng-model="otp" required>
+                                        </div>
+                                        <div ng-show="showTimer">
+                                            <span >Time remaining:</span>
+                                            <p ng-class="{'blink red-text': timer <= 30, 'green-text': timer > 30}"> {{formatTime(timer)}}</p>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" ng-disabled="disVerify">Verify</button>
+                                        <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancel</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <div ng-show="verificationSuccess" class="kyc_popupFoter alert alert-success" role="alert">
+                                        Aadhaar Successfully Verified For <strong> {{verifyOtpResponse.result.user_full_name}} .</strong>
+                                        <!--                                        Aadhaar Successfully Verified For <strong> {{verifyOtpResponse.result.user_full_name}} . <br>
+                                                                                    DOB : {{verifyOtpResponse.result.user_dob}} .</strong>-->
+                                        <hr style="height: 1px; border: thin; background-color: #80C37D;  margin-bottom: 10px; width: 100%;">
+                                        <div>
+                                            <h4>KYC Details</h4>
+                                            <p><strong>Full Name:</strong> {{verifyOtpResponse.result.user_full_name}}</p>
+                                            <p><strong>Gender:</strong> {{verifyOtpResponse.result.user_gender}}</p>
+                                            <p><strong>Date of Birth:</strong> {{verifyOtpResponse.result.user_dob}}</p>
+                                            <p><strong>Aadhaar Number:</strong> {{verifyOtpResponse.result.user_aadhaar_number}}</p>
+                                            <h5>Address:</h5>
+                                            <p><strong>Country:</strong> {{verifyOtpResponse.result.user_address.country}}</p>
+                                            <p><strong>State:</strong> {{verifyOtpResponse.result.user_address.state}}</p>
+                                            <p><strong>District:</strong> {{verifyOtpResponse.result.user_address.dist}}</p>
+                                            <p><strong>Location:</strong> {{verifyOtpResponse.result.user_address.loc}}</p>
+                                            <p><strong>Landmark:</strong> {{verifyOtpResponse.result.user_address.landmark}}</p>
+                                            <p><strong>Village/Town/City:</strong> {{verifyOtpResponse.result.user_address.vtc}}</p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="verificationFailure" class="alert alert-danger" role="alert">
+                                        Aadhaar Verification Failed. Please try again.
+                                    </div>
+                                    <button ng-click="resendOtp()" class="btn btn-secondary" ng-show="showResendButton">Resend OTP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--PanKYC popup-->
+                <div class="container mt-5 modal-content" ng-show="panCardshow">
+                    <!-- Modal -->
+                    <div class="modal w-100" id="panModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                        <div class="modal-dialog w-100" role="document">
+                            <div class="modal-content w-100">
+                                <div class="modal-header" style="background-color:#80C37D;">
+                                    <h5 style="color:black; font-size: x-large; font-weight: 600; " class="modal-title" id="otpModalLabel">Pan Verification</h5>
+
+                                </div>
+                                <div class="modal-body">
+                                    <form ng-submit="verifyPan()">
+                                        <div class="form-group">
+                                            <label for="otp">Pan No :</label>
+                                            <input type="text" class="form-control" id="otp" ng-model="panNumber" required><br>
+                                            <label for="otp">Pan Holder Name :</label>
+                                            <input type="text" class="form-control" id="otp" ng-model="panHolderName" required>
+                                        </div>
+                                        <!--                                        <div ng-show="showTimer">
+                                                                                    <span >Time remaining:</span>
+                                                                                    <p ng-class="{'blink red-text': timer <= 30, 'green-text': timer > 30}"> {{formatTime(timer)}}</p>
+                                                                                </div>-->
+                                        <button type="submit" class="btn btn-primary" ng-disabled="disPanVerify">Verify</button>
+                                        <button type="button" class="btn btn-secondary" ng-click="cancelPan()">Cancel</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <div ng-show="verificationPanSuccess" class="kyc_popupFoter alert alert-success" role="alert">
+                                        Pan Successfully Verified For <strong> {{verifyPanResponse.result.name_on_card}} .</strong>
+                                        <!--                                        Aadhaar Successfully Verified For <strong> {{verifyOtpResponse.result.user_full_name}} . <br>
+                                                                                    DOB : {{verifyOtpResponse.result.user_dob}} .</strong>-->
+                                        <hr style="height: 1px; border: thin; background-color: #80C37D;  margin-bottom: 10px; width: 100%;">
+                                        <div>
+                                            <h4>Pan KYC Details</h4>
+                                            <p><strong>Aadhaar Seeding Status :</strong> {{verifyPanResponse.result.aadhaar_seeding_status}}</p>
+                                            <p><strong>Pan Last Updated :</strong> {{verifyPanResponse.result.pan_last_updated}}</p>
+                                            <p><strong>Pan Number:</strong> {{verifyPanResponse.result.pan_number}}</p>
+                                            <p><strong>Pan Status:</strong> {{verifyPanResponse.result.pan_status}}</p>
+                                            <p><strong>First Name</strong> {{verifyPanResponse.result.user_first_name}}</p>
+                                            <p><strong>Middle Name</strong> {{verifyPanResponse.result.user_middle_name}}</p>
+                                            <p><strong>Last Name</strong> {{verifyPanResponse.result.user_last_name}}</p>
+                                            <p><strong>Name On Card</strong> {{verifyPanResponse.result.name_on_card}}</p>
+                                            <p><strong>User Title</strong> {{verifyPanResponse.result.user_title}}</p>
+                                            <p><strong>Name Match Score</strong> {{verifyPanResponse.result.name_match_score}}</p>
+                                            <p><strong>Pan Type</strong> {{verifyPanResponse.result.pan_type}}</p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="verificationPanFailure" class="alert alert-danger" role="alert">
+                                        Pan Verification Failed. Please try again.
+                                    </div>
+                                    <button ng-click="resendPan()" class="btn btn-secondary" ng-show="showRetryButton">Retry</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Aadhar Number exist -->
+                <div ng-show="forAadharDetails" class="popupAadhar list-container">
+                    <div style=" color: black; text-align: left;">
+                        <div style="position: sticky; top: 0;">
+                            <span class="close" ng-click="closeAadharDetails()">❌</span>
+                            <h2 class="form-heading" >KYC Verification Details</h2>
+                        </div>
+
+                        <table class="table" style="border: solid #80C37D thin; border-radius: 5px;" >
+                            <thead>
+                                <tr class="cardviewth" >
+                                    <th scope="col">Ack_No.</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Aadhar No.</th>
+                                    <th scope="col">Acc Type</th>
+                                    <th scope="col">Branch</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Uploaded By</th>
+                                    <th scope="col">Approved By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="cardviewtr" ng-repeat="record in list">
+                                    <td scope="row">{{record.code.substring(5, 15)}}</td>
+                                    <td>{{record.applicantFirst}}</td>
+                                    <td>{{record.adharNoFirst}}</td>
+                                    <td>{{record.accountType}}</td>
+                                    <td>{{record.branchName}}</td>
+                                    <td>{{record.status}}</td>
+                                    <td>{{record.date[0]| date:'dd/MM/yyyy HH:mm:ss a' }}</td>
+                                    <td>{{record.uploadedBy}}</td>
+                                    <td>{{record.approvedBy}}</td>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+        <!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>-->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+    </body>
+</html>

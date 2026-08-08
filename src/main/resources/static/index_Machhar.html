@@ -1,0 +1,193 @@
+<!--@Author - Ritik .k. Satpute-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Ritik .k. satpute" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="libAndJs/angular.min.js" type="text/javascript"></script>
+        <script src="libAndJs/jquery-3.6.0.min.js" type="text/javascript"></script>
+        <script src="libAndJs/angular.min.js" type="text/javascript"></script>
+        <script src="libAndJs/crypto-js.js" type="text/javascript"></script>
+        <link href="libAndJs/all.min.css" rel="stylesheet" type="text/css"/>
+        <link href="libAndJs/css2.css" rel="stylesheet" type="text/css"/>
+        <title>Login Page</title>
+        <script src="js/index_Machhar.min.js" type="text/javascript"></script>
+        <style>
+            
+            .card {
+                width: 400px;
+                margin: 80px;
+                padding: 20px;
+                border-radius: 5px;
+                background-color: rgba(0, 0, 0, 0.5); 
+            }
+
+            .card input[type="text"],
+            .card input[type="password"] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 0;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                border: 0px solid black;
+                background-color: rgba(0, 0, 0, 0.6);
+                color: rgba(1288, 1288, 1288, 0.9);
+
+            }
+            .card select{
+                width: 100%;
+                padding: 12px 20px;
+                margin: 0;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                border: 0px solid black;
+                background-color: rgba(0, 0, 0, 0.6);
+                color: rgba(1288, 1288, 1288, 0.9);
+
+            }
+            .center-align {
+                text-align: center;
+            }
+
+            .card button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: black;
+                color: white;
+                border: none;
+                background-color: rgba(0, 0, 0, 0.5);
+                width: 45%;
+                color: white;
+                padding: 12px 20px;
+                margin:  0px;
+                border: none;
+                border-radius: 10px; 
+                cursor: pointer;
+            }
+            .button:hover {
+                background-color: #91E246;
+            }
+            /*Container block*/
+
+            .input-container {
+                position: relative;
+                margin-bottom: 15px;
+
+            }
+            .input-container i {
+                position: absolute;
+                top: 25px;
+                left: 25px;
+                color: #ccc;
+                transform: translateY(-35%);
+
+            }
+
+            body{
+                background-image: url('image/bgImg.jpg');
+
+                background-repeat: no-repeat;
+                background-size: cover;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+            }
+            .card {
+                width: calc(35% - 40px);
+                padding: 20px;
+                box-sizing: border-box;
+                margin: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+            .btn {
+                display: inline-block;
+                margin-top: 15px;
+                padding: 10px 20px;
+                background-color: #91E246;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn:hover {
+                background-color: #91E246
+            }
+            .linkpage{
+                color: #86C44C;
+            }
+            .note{
+                color: white;
+            }
+            .titlename{
+                font-size: 25px; 
+                color: white; 
+                margin-bottom: -15px;
+                font-family: 'Roboto Slab', serif;
+            }
+            /*// For Loading Image*/
+            #loadingIcon{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        </style>
+
+</head>
+<html>
+    <body ng-app="loginApp" ng-controller="loginController"> 
+        <table width="100%" cellpadding="5" cellspacing="10" >
+            <tr>
+                <td class="signUparea">
+            <center>
+                <!--<div ng-show="loadingImg" style="max-width: 100%; max-height: 100%; background-color: whitesmoke; opacity: 0.6;">-->
+                        <!--<img src="image/logo.png" alt="Company Logo" style="max-width: 100px; max-height: 100px;"ng-show="loadingImg" id="loadingIcon">-->
+                <!--</div>-->
+                <div class="card">
+                    <div class="logo">
+                        <img src="image/logo.png" alt="Company Logo" style="width: 100px; ">
+                    </div>
+                    <form ng-submit="onSignUpSubmit();" >
+                        <h3 class="titlename"> KYC Verification System </h3><br>
+                        <div class="input-container">
+                            <i class="fas fa-user right-align-icon" style=" left: 50px; top: 60%; "></i><br>
+                            <input type="text" ng-model="userName" id="userName" name="username" placeholder="employee_Id (ex: 0123)" title="User Name should be your employee Id." required="" class="center-align">
+                        </div>
+                        <div  class="input-container">
+                            <i class="fas fa-address-card right-align-icon" style=" left: 50px; top: 60%; "></i><br>
+                            <select id="userType" name="userType"   ng-model="userType" class="center-align" required>
+                                <option value="" disabled selected ><i class="center-align" style="color: #999;" >Type of user</i></option>
+                                <option value="COPs">Super user</option>
+                            </select>
+                        </div>
+                        <div class="input-container">
+                            <i class="fas fa-lock" style=" left: 50px; top: 60%; "></i><br>
+                            <input type="password" pattern="^(?=.*\d)(?=.*[a-zA-Z]).{6,12}$" title="Password must be between 6 to 12 length characters, including at least one number and one letter." ng-model="userPassword" id="userPassword" name="userPassword" placeholder="password" required class="center-align">
+                        </div>
+                        <div class="input-container">
+                            <i class="fas fa-user-lock" style=" left: 50px; top: 60%; "></i><br>
+                            <input type="password" pattern="^(?=.*\d)(?=.*[a-zA-Z]).{6,12}$" ng-model="userPasswordC" id="cnfrmUserPassword" name="usrPass" placeholder="confirm password" required class="center-align">
+                        </div>
+                        <button class="btn btn-sm btn-primary btn-block btn-login" type="submit">sign up</button>
+                        <hr style=" height: 2px; border: 0; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(0, 100, 0) , rgba(0, 0, 0, 0));  margin-bottom: 10px; width: 70%;">
+                        <p class="note">
+                            If you have already an Account then <u class="linkpage" ng-click="onShowLoginPage();">click here.</u><br>
+                            By creating this account, you agree to our Privacy Policy.
+                        </p>
+                    </form>
+                </div>
+            </center>
+        </td>
+</tr>
+</table>
+</body>
+</html>

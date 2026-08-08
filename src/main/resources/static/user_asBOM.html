@@ -1,0 +1,910 @@
+<!--@Author - Ritik .k. Satpute-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Ritik .k. satpute" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="libAndJs/jquery-3.6.0.min.js" type="text/javascript"></script>
+        <script src="libAndJs/angular.min.js" type="text/javascript"></script>
+        <script src="libAndJs/xlsx.full.min.js" type="text/javascript"></script>
+        <script src="libAndJs/html2pdf.bundle.js" type="text/javascript"></script>
+        <script src="libAndJs/html2canvas.min.js" type="text/javascript"></script>
+        <link href="libAndJs/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="libAndJs/css2.css" rel="stylesheet" type="text/css"/>
+        <script src="js/user_asBOM.min.js" type="text/javascript"></script>
+        <script src="libAndJs/moment.min.js" type="text/javascript"></script>
+        <script src="libAndJs/xlsx.full.min.js" type="text/javascript"></script>
+        <link href="css/bomCSS.css" rel="stylesheet" type="text/css"/>
+        <!--new-->
+        <script src="libAndJs/popper.min.js" type="text/javascript"></script>
+        <script src="libAndJs/jquery-3.6.0.min.js" type="text/javascript"></script>
+        <script src="libAndJs/bootstrap.min_4.5.2.js" type="text/javascript"></script>
+
+        <script src="js/modules/kyc.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycJointSaving.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycPartnership.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycPubpvt.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycSavingCurrent.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycSoleProprietorship.module.min.js" type="text/javascript"></script>
+        <script src="js/modules/kycTasc.module.min.js" type="text/javascript"></script>
+        <link href="css/alertCSS.css" rel="stylesheet" type="text/css"/>
+        <title>BOM Dashboard</title>
+    </head>
+    <body ng-app="myApp" ng-controller="cont">
+        <div class="row" >
+
+            <div ng-show="listContainerVisible" class="container">
+                <div>
+                    <header>
+                        <div>
+                            <img src="image/logo.png" alt="Company Logo" style="width: 70px; height: 61px;">
+                            <p style="color: #555; font-weight: bold; font-size: 12px;" id="timestamp"></p>
+                        </div>
+                        <div>
+                            <h1 class="titlename">KYC Verification System</h1>
+                        </div>
+                        <div>
+                            <button class="header-btn" ng-click="logout()">Logout</button>
+                            <button id="info-icon" class="header-btn help-icon" style="font-size: 18px;">?</button>
+                            <div id="popup" class="popup list-container">
+                                <div style=" color: black; text-align: left;">
+                                    <div style="position: sticky; top: 0;">
+                                        <span class="close" id="close-btn">❌</span>
+                                        <h2 class="form-heading" >Help</h2>
+                                    </div>
+
+                                    <table style="border: solid #80C37D thin;" >
+                                        <tr>
+                                            <th>Problem</th>
+                                            <th>Solution</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Pop Document View (Esc)</td>
+                                            <td>Press Ctrl + W</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Verify Aadhar Existence</td>
+                                            <td>Use the search bar and type the Aadhar number</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Download Pre-uploaded Document</td>
+                                            <td>Follow below steps :
+                                                <ol>
+                                                    <li>Search the Aadhar number or name</li>
+                                                    <li>Right-click on the document in the list view</li>
+                                                    <li>Select "Save Image As"</li>
+                                                    <li>STOP.</li>
+                                                </ol>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Standardizing File Names</td>
+                                            <td>Branch Operations Manager (BOM) should rename documents to match the document number</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>How to format Excel Sheet adharNo Cell ?</td>
+                                            <td>Follow below steps :
+                                                <ol>
+                                                    <li>Right click on the header of the selected column.</li>
+                                                    <li>Click on "Format Cells..." from the list view.</li>
+                                                    <li>Click on "Custom" .</li>
+                                                    <li>Now Select "0" and press OK button.</li>
+                                                    <li>STOP.</li>
+                                                </ol></td>
+                                        </tr>
+                                        <tr>
+                                            <td>On clicking otherDoc not showing multiple Uploaded DOCs ?</td>
+                                            <td>Follow below steps :
+                                                <ol>
+                                                    <li>On clicking otherDocs preview it will show a pop-ups block in the browser search bar .</li>
+                                                    <li>Click on the pop-ups  block .</li>
+                                                    <li>Select the option "Always allow pop-ups and redirects from the http://.....</li>
+                                                    <li>Now Click on  "Done" button.</li>
+                                                    <li>STOP.</li>
+                                                </ol></td>
+                                        </tr>                                    
+                                        <tr>
+                                            <td colspan="2">
+                                                <a href="image/KycVerificationSystem.pdf" target="_blank">For more information click here ....</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <script>
+                                         // Get the elements
+                                         const infoIcon = document.getElementById('info-icon');
+                                         const popup = document.getElementById('popup');
+                                         const closeBtn = document.getElementById('close-btn');
+                                         // Show the popup when info icon is clicked
+                                         infoIcon.addEventListener('click', () => {
+                                             popup.style.display = 'block';
+                                         });
+                                         // Close the popup when the close button is clicked
+                                         closeBtn.addEventListener('click', () => {
+                                             popup.style.display = 'none';
+                                         });
+                                         // Close the popup if user clicks outside the popup
+                                         window.addEventListener('click', (e) => {
+                                             if (e.target === popup) {
+                                                 popup.style.display = 'none';
+                                             }
+                                         });
+                            </script>
+                        </div>
+                    </header>
+                    <script>
+                                 // Function to display and continuously update the timestamp
+                                 function updateTimestamp() {
+                                     var now = new Date();
+                                     var date = now.toLocaleDateString();
+                                     var time = now.toLocaleTimeString();
+                                     // Display date and time on separate lines
+                                     var timestamp = date + " , " + time;
+                                     document.getElementById('timestamp').innerHTML = timestamp;
+                                 }
+
+                                 // Call the function initially and set up an interval to update the timestamp every second
+                                 updateTimestamp();
+                                 setInterval(updateTimestamp, 1000); // Update every second
+                    </script>
+                </div>
+                <br>
+
+                <div>
+                    <h3 style="width: 85%;display: inline-block;">Branch Operation Manager (BOM)</h3> 
+                    <div class="user_name" >User : {{userRecord.userName}}</div> 
+                </div> 
+                <div class="table-view">
+                    <div class="row d-flex align-content-center align-items-center">
+                        <div class="rcorners col-3 d-flex align-content-center align-items-center">
+                            <input style="" type="image" src="image/search.png" width="20" height="20"/>&nbsp;&nbsp;&nbsp;
+                            <input class="searchbar" type="text"  ng-model="search"/>
+                        </div>
+                        <div class="col">
+                            <a  href="{{uRl}}form_main_cont.html" >
+                                <button href="{{uRl}}form_main_cont.html" type="button" class="form-button attractive-button" >KYC form</button>
+                            </a>
+                            <button type="button" class="form-button attractive-button" ng-click="exportToExcel()">Export To Excel</button>
+                        </div>
+                        <!--                            <td colspan="2">
+                                                    </td>-->
+                        <div class="col-6" style="text-align: right;">
+                            <button type="button" class="form-button attractive-button" ng-click="searchByFiled('Approved')" >Approved</button>
+                            <button type="button" class="form-button attractive-button" ng-click="searchByFiled('Pending at COPs')" >Pending at COPs</button>
+                            <button type="button" class="form-button attractive-button" ng-click="searchByFiled('Pending at BOM')" >Pending at BOM</button>
+                            <button type="button" class="form-button attractive-button" ng-click="searchByFiled('')" >All</button>
+                        </div>
+                    </div>
+                    <table>
+                        <thead  style="position: sticky; position: -webkit-sticky; top: 0;">
+                            <tr class="cardviewth">
+                                <th style="width: 4%">Ack_No.</th>
+                                <th style="width: 10%">Name</th>
+                                <th style="width: 6%">Aadhar No.</th>
+                                <th style="width: 7%">Acc Type</th>
+                                <th style="width: 8%">Branch</th>
+                                <!--                            <th style="width: 4%">PAN</th>
+                                                            <th style="width: 4%">Aadhar</th>
+                                                            <th style="width: 4%">Other</th>
+                                                            <th style="width: 4%">Client Form</th>-->
+                                <th style="width: 8%">Date</th>
+                                <th style="width: 14%">Status</th>
+                                <th style="width: 14%">Remark</th>
+                                <th style="width: 6%">Uploaded By</th>
+                                <th style="width: 6%">Approved By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cardviewtr" ng-repeat="record in masterKycRecordList| continuousSubstringFilter:search:['code','applicantFirst','adharNoFirst','accountType','branchName','date','status','remark','uploadedBy','approvedBy']">
+                                <!--<td class="idpoint" ng-click="editRecord(record)">{{record.code.substring(5, 15)}}</td>-->
+                                <td class="idpoint" ng-click="editRecord(record)">{{record.code.split("_")[1] + "_" + record.code.split("_")[2].substring(0, 6)}}</td>
+                                <td >{{record.applicantFirst}}</td>
+                                <td >{{record.adharNoFirst}}</td>
+                                <td >{{record.accountType}}</td>
+                                <td >{{record.branchName}}</td>
+                                <!--                            <td >
+                                                                <img class="rcornersimg"  src="image/Pan_img.webp" alt="" />
+                                                                <img class="rcornersimg" alt="{{record.pan.getOwnPropertyNames()}}" ng-src="{{'data:image/png;base64,'+record.pan}}" />
+                                                                <img class="iconlook" src="image/check.png" ng-style="{'display':(record.panStatus === 'Accept')?'block':'none'}"/>
+                                                                <img class="iconlook" src="image/cross.png" ng-style="{'display':(record.panStatus === 'Reject')?'block':'none'}"/>
+                                                            </td>
+                                                            <td>
+                                                                <img class="rcornersimg"  src="image/Aadhar_img.png" alt="" />
+                                                                <img class="rcornersimg" alt="{{record.adhar.getOwnPropertyNames()}}" ng-src="{{'data:image/png;base64,'+record.adhar}}" />
+                                                                <img class="iconlook" src="image/check.png" ng-style="{'display':(record.adharStatus === 'Accept')?'block':'none'}"/>
+                                                                <img class="iconlook" src="image/cross.png" ng-style="{'display':(record.adharStatus === 'Reject')?'block':'none'}"/>
+                                                            </td>
+                                                            <td>
+                                                                <img class="rcornersimg"  src="image/pdfimg.png" alt="" />
+                                                                <img class="iconlook" src="image/check.png" ng-style="{'display':(record.otherDocStatus === 'Accept')?'block':'none'}"/>
+                                                                <img class="iconlook" src="image/cross.png" ng-style="{'display':(record.otherDocStatus === 'Reject')?'block':'none'}"/>
+                                                            </td>
+                                                            <td>
+                                                                <img class="rcornersimg"  src="image/pdfimg.png" alt="" />
+                                                                <img class="iconlook" src="image/check.png" ng-style="{'display':(record.applicationFormStatus === 'Accept')?'block':'none'}"/>
+                                                                <img class="iconlook" src="image/cross.png" ng-style="{'display':(record.applicationFormStatus === 'Reject')?'block':'none'}"/>
+                                                            </td>-->
+                                <td>{{record.date[0]| date:'dd/MM/yyyy HH:mm:ss a' }}</td>
+                                <td>{{record.status}}</td>
+                                <td style="color: #007BFF; cursor: pointer;"  ng-click="viewRemark(record.remark)" >{{record.remark.substring(0, 30)}} Read more ...</td>
+                                <td>{{record.uploadedBy}}</td>
+                                <td>{{record.approvedBy}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Alert Box -->
+            <div ng-show="showEditFormAlert" class="custom-alert-overlay">
+                <div class="custom-alert">
+                    <div class="alert-content-editForm">
+                        <strong>Alert!</strong> User : {{Record.accessingId}} already accessing the form.
+
+                        <div class="mt-2">
+<!--                            <button type="button" class="btn btn-success" ng-click="showCnformAlert()" >
+                                Accept
+                            </button>-->
+                            <button type="button" class="btn btn-danger"  ng-click="closeAlert()">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+<!--            <div ng-show="showConfrmEditFormAlert" class="custom-alert-overlay">
+                <div class="custom-alert">
+                    <div class="alert-content-editForm">
+                        <strong>Do you really want to access the form ?</strong> 
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-success" ng-click="openEditForm()" >
+                                Yes
+                            </button>
+                            <button type="button" class="btn btn-danger"  ng-click="closeAlert()">
+                                No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+            <!--            <div ng-show="showSilverSaving"  ng-controller="silverSavingCont"
+                             ng-include="'BOMform/silverSaving.html'"> 
+                        </div>
+            
+                        <div ng-show="showNormalSaving" ng-controller="normalSavingCont"
+                             ng-include="'BOMform/normalSaving.html'"> 
+            
+                        </div>
+            
+                        <div ng-show="showJointSilverSaving"  ng-controller="jointSilverSavingCont"
+                             ng-include="'BOMform/jointSilverSaving.html'"> 
+            
+                        </div>
+            
+                        <div ng-show="showJointNormalSaving"  ng-controller="jointNormalSavingCont"
+                             ng-include="'BOMform/jointNormalSaving.html'"> 
+            
+                        </div>
+            
+                        <div ng-show="showCurrentWealth"  ng-controller="currentWealthCont"
+                             ng-include="'BOMform/currentWealth.html'"> 
+            
+                        </div>
+            
+                        <div ng-show="showCurrentGold"  ng-controller="currentGoldCont"
+                             ng-include="'BOMform/currentGold.html'"> 
+            
+                        </div>
+            
+                        <div ng-show="showNormalCurrent"  ng-controller="normalCurrentCont"
+                             ng-include="'BOMform/normalCurrent.html'"> 
+            
+                        </div>
+            
+                        <div ng-show="showSoleProprietorship" ng-controller="soleProprietorshipCont"
+                             ng-include="'BOMform/soleProprietorship.html'"> 
+            
+                        </div>
+            
+                        <div ng-show="showPartnership" ng-controller="partnershipCont"
+                             ng-include="'BOMform/partnership.html'"> 
+            
+                        </div>
+            
+                        <div ng-show="showPublic_Pvt"  ng-controller="public_PvtCont"
+                             ng-include="'BOMform/public_Pvt.html'"> 
+            
+                        </div>
+            
+                        <div ng-show="showTASC"  ng-controller="tascCont"
+                             ng-include="'BOMform/tasc.html'"> 
+            
+                        </div>-->
+            <!--OKYC popup-->
+            <div class="container mt-5 modal-content" ng-show="aadhaarCardshow">
+                <div>
+                    <div style="width: 40%; left:30%; right: 30%; top: 30;" class="modal" id="aadharModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+
+                        <div class="card p-4" >
+                            <div class="modal-body">
+                                <h3 class="card-title">Aadhaar Verification</h3>
+                                <form ng-submit="sendOtp()">
+                                    <div class="form-group">
+                                        <label style="font-size: larger; font-weight: 500;" for="aadhaar">Aadhaar:</label>
+                                        <input type="text" class="form-control" id="aadhaar" ng-model="aadhaar" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" ng-disabled="disSendOtp">Send OTP</button>
+                                    <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal w-100" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                    <div class="modal-dialog w-100" role="document">
+                        <div class="modal-content w-100">
+                            <div class="modal-header" style="background-color:#80C37D;">
+                                <h5 style="color:black; font-size: x-large; font-weight: 600; " class="modal-title" id="otpModalLabel">Enter OTP</h5>
+
+                            </div>
+                            <div class="modal-body">
+                                <form ng-submit="verifyOtp()">
+                                    <div class="form-group">
+                                        <label for="otp">OTP:</label>
+                                        <input type="text" class="form-control" id="otp" ng-model="otp" required>
+                                    </div>
+                                    <div ng-show="showTimer">
+                                        <span >Time remaining:</span>
+                                        <p ng-class="{'blink red-text': timer <= 30, 'green-text': timer > 30}"> {{formatTime(timer)}}</p>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" ng-disabled="disVerify">Verify</button>
+                                    <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancel</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <div ng-show="verificationSuccess" class="alert alert-success" role="alert">
+                                    Aadhaar Successfully Verified For <strong> {{verifyOtpResponse.result.user_full_name}} . <br>
+                                        DOB : {{verifyOtpResponse.result.user_dob}} .</strong>
+
+                                </div>
+                                <div ng-show="verificationFailure" class="alert alert-danger" role="alert">
+                                    Aadhaar Verification Failed. Please try again.
+                                </div>
+                                <button ng-click="resendOtp()" class="btn btn-secondary" ng-show="showResendButton">Resend OTP</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Aadhar Number exist -->
+            <div ng-show="forAadharDetails" class="popupAadhar list-container">
+                <div style=" color: black; text-align: left;">
+                    <div style="position: sticky; top: 0;">
+                        <span class="close" ng-click="closeAadharDetails()">❌</span>
+                        <h2 class="form-heading" >KYC Verification Details</h2>
+                    </div>
+
+                    <table class="table" style="border: solid #80C37D thin; border-radius: 5px;" >
+                        <thead>
+                            <tr class="cardviewth" >
+                                <th scope="col">Ack_No.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Aadhar No.</th>
+                                <th scope="col">Acc Type</th>
+                                <th scope="col">Branch</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Uploaded By</th>
+                                <th scope="col">Approved By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cardviewtr" ng-repeat="record in list">
+                                <td scope="row">{{record.code.substring(5, 15)}}</td>
+                                <td>{{record.applicantFirst}}</td>
+                                <td>{{record.adharNoFirst}}</td>
+                                <td>{{record.accountType}}</td>
+                                <td>{{record.branchName}}</td>
+                                <td>{{record.status}}</td>
+                                <td>{{record.uploadedBy}}</td>
+                                <td>{{record.approvedBy}}</td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--        <div ng-show="formContainerVisible" class="containernew col-md-7 mt-3">
+                    <div class="row">
+                        <div class ="col-md-12 ">
+                            <div class="p-1">
+                                <h1 class="form-heading">KYC Verification</h1>
+                            </div>
+        
+                            <div class="my-card p-3">  
+        
+                                <form id="myForm" ng-submit="userEdit('Pending at COPs')">
+        
+        
+        
+                                    <div class="tablecontainer">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="formProgress" class="form-label">Status :</label>
+                                                <input type="text" class="form-input" required value="status" ng-model="status" readonly="">
+                                            </div>
+                                            <div class="col">
+                                                <label for="id" class="form-label">ID:</label>
+                                                <input type="text" class="form-input" required value="id" ng-model="id" readonly="">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col" ng-show="notVisible_OnApprovalBOM">
+                                                <label for="formProgress" class="form-label">Remark by BOM :</label><br>
+                                                <textarea rows="3" cols="50" class="form-inputNew" required value="oldRemark" ng-model="oldRemark" readonly=""></textarea>
+                                            </div>
+                                            <div class="col"  ng-show="notVisible_OnApprovalCOPs">
+                                                <label for="formProgress" class="form-label">Remark by COPs :</label><br>
+                                                <textarea rows="3" cols="50" class="form-inputNew" required value="oldRemark" ng-model="oldRemark" readonly=""></textarea>
+                                            </div>
+                                        </div>                    
+                                        <div class="row">
+                                            <div class="col">
+                                                <hr style="height: 1px; border: thin; background-color: #80C37D;  margin-bottom: 10px; width: 100%;">
+                                                <label style="text-align: left; font-size: 18px;" for="applicantName" class="form-label"> APPLICANT </label>
+                                            </div>
+                                        </div>
+        
+        
+                                        <div class="form-row mb-3 mr-md-auto  justify-content-center ">
+                                            <div class="col-md-1 pt-1  mr-md-auto">
+                                            <div class="col-sm-2 pt-1 ">
+                                                <label for="id" class="form-label ">1st Applicant :</label>
+                                            </div>
+        
+                                            <div class="col-10">    
+                                                <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}" id="applicant1" name="applicant1" class="form-control "  placeholder="First Applicant" ng-model="applicant1" required="">
+                                            </div>
+        
+                                        </div>
+        
+        
+                                        <div class="form-row mb-3 mr-md-auto  justify-content-center " ng-show="showApp2" >
+                                            <div class="col-md-1 pt-1  mr-md-auto">
+                                            <div class="col-sm-2 pt-1 ">
+                                                <label for="id" class="form-label ">2nd Applicant :</label>
+                                            </div>
+        
+                                            <div class="col ">
+                                                <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicant2" name="applicant2" class="form-control"  placeholder="Second Applicant" ng-model="applicant2">
+                                            </div>
+        
+        
+                                        </div>
+        
+        
+                                        <div class="form-row mb-3 mr-md-auto  justify-content-center "  ng-show="showApp3">
+                                            <div class="col-md-1 pt-1  mr-md-auto">
+                                            <div class="col-sm-2 pt-1 ">
+                                                <label for="id" class="form-label ">3rd Applicant :</label>
+                                            </div>
+        
+                                            <div class="col ">
+                                                <input type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$ {0,25}"  id="applicant3" name="applicant3" class="form-control" placeholder="Third Applicant" ng-model="applicant3">
+                                            </div>
+        
+                                        </div>
+        
+        
+                                        <div class="row">
+                                            <div class="col">
+                                                <label for="branchName" class="form-label">Branch Name:</label>
+                                                <select id="branchName" name="branchName" class="form-input" ng-model="branchName" required>
+                                                    <option value="{{reco.branchName}}">{{reco.branchName}}</option>
+                                                </select>
+                                                                            <select id="branchName" name="branchName" class="form-input" ng-model="branchName" required="">
+                                                                                <option value="" disabled selected ><i class="center-align" style="color: #999;" >Select The Branch Name</i></option>
+                                                                                <option ng-repeat="option in branchlist" value="{{option}}">{{option}}</option>
+                                                                            </select>                            
+                                            </div>
+                                            <div class="col" ng-show="showAadhar1">
+                                                <label for="adharNo" class="form-label">Aadhar Number :</label>
+                                                <input type="tel" pattern="[0-9]{12}" id="adharNo" name="adharNo" class="form-input" ng-model="adharNo">
+                                                <img id="info-adhar" class="imgsync" ng-click="aadharcheck(adharNo)" src="image/sync.png" alt=""/>
+                                                <div ng-show="visibelForAadharDetails" id="popup-adhar" class="popup list-container">
+                                                    <div style=" color: black; text-align: left;">
+                                                        <div style="position: sticky; top: 0;">
+                                                            <span class="close" id="close-btn-adhar">❌</span>
+                                                            <h2 class="form-heading" >KYC Verification Details</h2>
+                                                        </div>
+                                                        <table style="border: solid #80C37D thin; border-radius: 5px;" >
+                                                            <tr class="cardviewth" style="background-color: #80C37D;" >
+                                                                <th>Ack_No.</th>
+                                                                <th>Name</th>
+                                                                <th>Aadhar No.</th>
+                                                                <th>Acc Type</th>
+                                                                <th>Branch</th>
+                                                                <th>Status</th>
+                                                                <th>Uploaded By</th>
+                                                                <th>Approved By</th>
+                                                            </tr>
+                                                            <tr class="cardviewtr" ng-repeat="record in list_Adhar">
+                                                                <td>{{record.code.substring(5, 15)}}</td>
+                                                                <td>{{record.firstName}} {{record.midName}} {{record.lastName}}</td>
+                                                                <td>{{record.adharNo}}</td>
+                                                                <td>{{record.accountType}}</td>
+                                                                <td>{{record.branchName}}</td>
+                                                                <td>{{record.status}}</td>
+                                                                <td>{{record.uploadedBy}}</td>
+                                                                <td>{{record.approvedBy}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script>
+                                                         // Get the elements
+                                                         const infoAdhar = document.getElementById('info-adhar');
+                                                         const popupAdhar = document.getElementById('popup-adhar');
+                                                         const closeAdhar = document.getElementById('close-btn-adhar');
+                                                         // Show the popup when info icon is clicked
+                                                         infoAdhar.addEventListener('click', () => {
+                                                             popupAdhar.style.display = 'block';
+                                                         });
+                                                         // Close the popup when the close button is clicked
+                                                         closeAdhar.addEventListener('click', () => {
+                                                             popupAdhar.style.display = 'none';
+                                                         });
+                                                         // Close the popup if user clicks outside the popup
+                                                         window.addEventListener('click', (e) => {
+                                                             if (e.target === popupAdhar) {
+                                                                 popupAdhar.style.display = 'none';
+                                                             }
+                                                         });
+                                            </script>                            
+                                        </div>     
+        
+        
+                                        for displaying 2
+                                        <div class="form-row mb-3 "  ng-show="showAadhar2">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="adharNo" class="form-label" style="display:inline-block;">Aadhar Number :</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-4" >
+        
+                                                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo1" name="adharNo" class="form-input" ng-model="adharNo1" placeholder="Aadhar-1">
+                                                        <img id="info-icon_A1" class="imgsync" ng-click="aadharcheck(adharNo1)" src="image/sync.png" alt=""/>
+        
+                                                    </div>
+        
+                                                    2nd addhar
+                                                    <div class="col-4 " >
+                                                                                            <label for="adharNo" class="form-label">Aadhar Number:</label>
+                                                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo2" name="adharNo2" class="form-input" ng-model="adharNo2" placeholder="Aadhar-2">
+                                                        <img id="info-icon_A2" class="imgsync" ng-click="aadharcheck(adharNo2)" src="image/sync.png" alt=""/>
+                                                    </div>
+        
+        
+                                                </div>
+                                            </div>
+                                        </div>
+        
+        
+                                        for displaying 3
+                                        <div class="form-row mb-3  " ng-show="showAadhar3">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="adharNo" class="form-label" style="display:inline-block;">Aadhar Number :</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-4" >
+        
+                                                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo1" name="adharNo" class="form-input" ng-model="adharNo1" placeholder="Aadhar-1">
+                                                        <img id="info-icon_A1" class="imgsync" ng-click="aadharcheck(adharNo1)" src="image/sync.png" alt=""/>
+        
+                                                    </div>
+        
+                                                    2nd addhar
+                                                    <div class="col-4 " >
+                                                                                            <label for="adharNo" class="form-label">Aadhar Number:</label>
+                                                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo2" name="adharNo2" class="form-input" ng-model="adharNo2" placeholder="Aadhar-2">
+                                                        <img id="info-icon_A2" class="imgsync" ng-click="aadharcheck(adharNo2)" src="image/sync.png" alt=""/>
+                                                    </div>
+        
+                                                    / 3rd aadhar 
+                                                    <div class="col-4 " >
+                                                                                            <label for="adharNo" class="form-label">Aadhar Number:</label>
+                                                        <input type="tel"  title="Aadhar Number must be 12 length."  pattern="[0-9]{12}" id="adharNo3" name="adharNo3" class="form-input" ng-model="adharNo3" placeholder="Aadhar-3">
+                                                        <img id="info-icon_A3" class="imgsync" ng-click="aadharcheck(adharNo3)" src="image/sync.png" alt=""/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+        
+        
+        
+                                        <div class="row mt-2">
+                                            <div class="col-6" >
+                                                <label for="accountType" class="form-label">Account Type:</label>
+                                                <input type="text" id="accountType" name="accountType" class="form-input" ng-model="accountType" required="" readonly="">
+                                            </div>
+                                            <div  class="col-6 mt-2">
+                                                <label for="adharNo" class="form-label">Mobile Number :</label>
+                                                <input type="tel" pattern="[0-9]{10}" id="mobileNo" name="mobileNo" class="form-input" ng-model="mobileNo" required="">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div colspan="2" style="align-items: center; ">
+                                                <div style="width: 100%; display: inline-block">
+                                                    <hr style="height: 1px; border: thin; background-color: #80C37D;  margin-bottom: 10px; width: 100%;">
+                                                    <label style="text-align: center; font-size: 18px;" for="applicantName" class="form-label"> DOCUMENTS </label>
+                                                </div>
+                                                <div class="vertical_line docdiv">
+                                                    <div class="docdivIn_F">
+                                                        <label class="form-label">PAN Card / Form-16</label><br>
+                                                    </div>
+                                                    <div class="docdivIn_S">
+                                                        <img class="rcornersimgE" id="imgPan" src="image/Pan_img.webp" alt="Image"  ng-click="viewPan()"/><br>
+                                                    </div>
+                                                    <div style="padding-top: 15px;">    
+                                                        <input type="file" id="inputPan" name="panCard" accept=".jpg, .jpeg, .png, .webp" onchange="checkVal('inputPan')" ng-disabled="reco.panStatus === 'Accept'" multiple="true">
+                                                    </div>
+                                                </div>
+                                                <div class="vertical_line docdiv">
+                                                    <div class="docdivIn_F">
+                                                        <label class="form-label">Aadhar Card </label><br>
+                                                    </div>
+                                                    <div class="docdivIn_S">
+                                                        <img class="rcornersimgE" id="imgAdhar" src="image/Aadhar_img.png" alt="Image" ng-click="viewAadhar()"/><br>
+                                                    </div>
+                                                    <div style="padding-top: 15px;">
+                                                        <input type="file" id="inputAdhar" name="adharCard" accept=".jpg, .jpeg, .png, .webp" onchange="checkVal('inputAdhar')" ng-disabled="reco.adharStatus === 'Accept'" multiple="true">
+                                                    </div>
+                                                </div>
+                                                <div class="vertical_line docdiv">
+                                                    <div class="docdivIn_F">
+                                                        <label class="form-label">Other Docs &nbsp;</label>
+                                                        <button id="info-iconEd" class="info-iconE">i️</button>
+                                                        <div id="popupEd" class="popupE list-containerE">
+                                                            <div class="popup-contentE">
+                                                                <span class="close-btnE" id="close-btnEd">❌</span>
+                                                                <h2>Other Documents List</h2>
+                                                                <dl><b>Saving Account</b></dl>
+                                                                <dt >Officially Valid
+                                                                    Documents
+                                                                    (OVDs) for
+                                                                    Accounts of
+                                                                    Individuals</dt>
+                                                                <dd>- Passport </dd>
+                                                                <dd>- Driving license with photo </dd>
+                                                                <dd>- Proof of possession of Aadhaar Number </dd>
+                                                                <dd>- Voter’s Identity Card issued by Election Commission of India </dd>
+                                                                <dd>- Job card issued by NREGA duly signed by an officer of the State  Government. </dd>
+                                                                <dd>- Letter issued by the National Population Register containing details of Name and Address. </dd><br>
+                                                                <dt>Deemed Officially
+                                                                    Valid Documents,
+                                                                    In case OVD does not
+                                                                    contains current/
+                                                                    updated address. (At
+                                                                    least one document
+                                                                    from the list is
+                                                                    required.)</dt> 
+                                                                <dd>- Utility bill of any service provider i.e. electricity, telephone, postpaid mobile phone, piped gas, water bill (not more than two months old)</dd>
+                                                                <dd>- Property or Municipal Tax receipt</dd>
+                                                                <dd>- Pension or family pension payment orders (PPOs) issued to retired
+                                                                    employees by Government Departments or Public Sector Undertakings, If
+                                                                    they contain the address.</dd>
+                                                                <dd>- Letter of allotment of accommodation from employer issued by State or	Central Government departments, statutory or regulatory bodies, and public
+                                                                    sector undertakings, scheduled commercial banks, financial institutions and
+                                                                    listed companies. Similarly, leave and license agreements with such
+                                                                    employers allotting official accommodation.</dd>
+        
+        
+                                                                <dl><b>Current Account</b></dl>
+                                                                <dt>Accounts of Sole
+                                                                    Proprietary firms.</dt>
+                                                                <dd> Registration Certificate</dd>
+                                                                <dd>- Certificate/ license issued by the municipal authorities under Shop & Establishment
+                                                                    Act,</dd>
+                                                                <dd>- Sales and income tax returns.</dd>
+                                                                <dd>- CST/ VAT/GST Certificate (Provisional/Final).</dd>
+                                                                <dd>- Certificate / registration document issued by Sales Tax / Service Tax / Professional
+                                                                    Tax authorities.</dd>
+                                                                <dd>- IEC (Importer Exporter Code) issued to the proprietary concern by the office of
+                                                                    DGFT or License/ certificate of practice issued in the name of proprietary concern
+                                                                    by any professional body incorporated under statute.</dd>
+                                                                <dd>- Complete Income Tax return (not just the acknowledgement) in the name of Sole
+                                                                    Proprietor where the Firm’s income is reflected, duly authenticated/ Acknowledged
+                                                                    by the Income Tax Authorities.</dd>
+                                                                <dd>- Utility bills such as electricity, water, and landline telephone bills in the name of the
+                                                                    proprietary concern.
+                                                                    In case where the branches are satisfied that it is not possible to furnish two such
+                                                                    documents from the above list, they would have the discretion to accept only one of those
+                                                                    documents as activity proof. In such cases, the branches would have to undertake
+                                                                    contact point verification, collect information to establish the existence of such firm,
+                                                                    confirm, and satisfy itself that the business activity has been verified from the address of
+                                                                    the proprietary concern. <br> <b>AND</b><br>
+                                                                    -Any one of the OVDs along with PAN/ FORM60 of the proprietor.</dd>
+                                                                <br>
+                                                                <dt>Accounts of
+                                                                    Partnership firms.
+                                                                    (Registered)</dt>
+                                                                <dd>- Registration certificate.</dd>
+                                                                <dd>- Partnership deed.</dd>
+                                                                <dd>- PAN No. of the Partnership Firm.</dd>
+                                                                <dd>- Any one of the OVDs and PAN/ FORM60 of the person holding an Attorney to
+                                                                    transact on its behalf with his/ her photograph.</dd>
+        
+                                                                <br>
+                                                                <dt>Accounts of Trusts</dt>
+                                                                <dd>- Registration Certificate.</dd>
+                                                                <dd>- Trust Deed.</dd>
+                                                                <dd>- PAN/ FORM60 of Entity.</dd>
+                                                                <dd>- Any one of the OVDs and PAN/FORM60 of the person holding an Attorney to
+                                                                    transact on its behalf with his/her photograph.</dd>
+        
+                                                                <br>
+                                                                <dt>Accounts of
+                                                                    Unincorporated
+                                                                    Associations or body
+                                                                    of individuals
+                                                                    includes unregistered partnership firm/
+                                                                    trusts and societies.</dt>
+                                                                <dd>- Resolution of the Managing body of such association or body of individuals.</dd>
+                                                                <dd>- PAN/ FORM60 of Unincorporated Associations or body of individuals</dd>
+                                                                <dd>- Power of Attorney granted to transact on its behalf.</dd>
+                                                                <dd>- Any one of the OVDs and PAN/ FORM60 of the Office bearers / Signatories and
+                                                                    persons holding Power of Attorney, if any with his/her photograph in respect of the
+                                                                    person holding an Attorney to transact on its behalf.</dd>
+                                                                <dd>
+                                                                    -  Any one of the below mentioned list of documents to collectively establish the legal
+                                                                    existence of such an associations or body of individuals.
+                                                                    <ul>
+                                                                        <li>Partnership Deed/ Trust Deed/ Bye Laws</li>
+                                                                        <li>Certificate/ license issued by the municipal authorities under Shop &
+                                                                            Establishment Act.</li>
+                                                                        <li>Sales Tax Returns.</li> 
+                                                                        <li>CST/ VAT/ GST certificates (Provisional/ Final).</li> 
+                                                                        <li>Certificate/ registration document issued by Sales Tax/ Service Tax/
+                                                                            Professional Tax authorities.</li>
+                                                                        <li>License/ certificate of practice issued in the name of proprietary concern by
+                                                                            any professional body incorporated under statute.</li>
+                                                                        <li>Complete Income Tax return (not just the acknowledgement) in the name of
+                                                                            Sole Proprietor where the Firm’s income is reflected, duly authenticated/
+                                                                            Acknowledged by the Income Tax Authorities.</li>
+                                                                        <li> Utility bills such as electricity, water, and landline telephone bills in the name
+                                                                            of the concerns.</li>	
+                                                                    </ul>
+                                                                </dd>
+                                                            </div>
+                                                        </div>
+        
+                                                    </div>
+                                                    <div class="docdivIn_S">
+                                                        <img class="rcornersimgE" id="imgotherDoc"  ng-click="viewPdfOther()" src="image/pdfimg.png" alt=""/><br>
+                                                    </div>
+                                                    <div style="padding-top: 15px;">   
+                                                        <input type="file" id="inputotherDoc" name="otherDocCard" accept=".pdf" onchange="checkVal('inputotherDoc')" multiple="true" ng-disabled="reco.otherDocStatus === 'Accept'">
+                                                    </div>
+                                                </div>
+                                                <div class="docdiv">
+                                                    <div class="docdivIn_F">
+                                                        <label class="form-label">Client Form</label><br>
+                                                    </div>
+                                                    <div class="docdivIn_S">
+                                                        <img class="rcornersimgE" id="imgapplicationForm"  ng-click="viewPdfApp()" src="image/pdfimg.png" alt=""/><br>
+                                                    </div>
+                                                    <div style="padding-top: 15px;">
+                                                        <input type="file" id="inputapplicationForm" name="applicationFormCard" accept=".pdf" onchange="checkVal('inputapplicationForm')" multiple="true" ng-disabled="reco.applicationFormStatus === 'Accept'">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                        <label for="formProgress" class="form-label">Remark :</label>
+                                        <textarea rows="3" cols="50" id="remark" name="remark" class="form-inputNew" value="remark" pattern=".{1,240}" ng-model="remark" ng-change="checkLength()" required=""></textarea>
+                                        <textarea rows="3" cols="50" id="remark" name="remark" class="form-inputNew" value="remark" ng-model="remark" required=""></textarea>
+                                        <input type="text" id="approvedBy" name="approvedBy" class="form-input" value="approvedBy" ng-model="approvedBy" hidden="">
+                                        <input type="text" id="uploadedBy" name="uploadedBy" class="form-input" value="uploadedBy" ng-model="uploadedBy" hidden="">
+                                    </div>
+                                    <button type="submit" class="form-button padbutton" ng-show="notVisible_OnApproval" >Submit</button>
+                                    <button type="button" class="form-button padbutton" ng-show="Visible_OnApproval" ng-click="dataToPDF(id)" >Print</button>
+                                    <a  href="{{uRl}}user_asBOM.html" >
+                                        <button type="button" class="form-button padbutton" > Cancel </button>
+                                    </a>
+        
+                                </form>
+        
+                                <div ng-show="visibelForAadharDetails" class="popupAadhar list-container">
+                                    <div style=" color: black; text-align: left;">
+                                        <div style="position: sticky; top: 0;">
+                                            <span class="close" ng-click="closeAadharDetails()">❌</span>
+                                            <h2 class="form-heading" >KYC Verification Details</h2>
+                                        </div>
+        
+                                        <table class="table" style="border: solid #80C37D thin; border-radius: 5px;" >
+                                            <thead>
+                                                <tr class="cardviewth" >
+                                                    <th scope="col">Ack_No.</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Aadhar No.</th>
+                                                    <th scope="col">Acc Type</th>
+                                                    <th scope="col">Branch</th>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Uploaded By</th>
+                                                    <th scope="col">Approved By</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="cardviewtr" ng-repeat="record in list_Adhar">
+                                                    <td scope="row">{{record.code.substring(5, 15)}}</td>
+                                                    <td>{{record.applicant}}</td>
+                                                    <td>{{record.adharNo}}</td>
+                                                    <td>{{record.accountType}}</td>
+                                                    <td>{{record.branchName}}</td>
+                                                    <td>{{record.status}}</td>
+                                                    <td>{{record.uploadedBy}}</td>
+                                                    <td>{{record.approvedBy}}</td>
+                                                </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+
+
+        <br>
+        <div style="border-radius: 4px; margin-left: 16px; margin-right: 16px; background-color: #004516; color: white; font-size: 16px; text-align: center; opacity: 0.5; ">
+            ©2024. Sahayog Multi-State Credit Co-operative Society Ltd. – All rights reserved.(PV 1.1)
+        </div>
+        <script>
+//             document.getElementById('myForm').addEventListener('keydown', function (event) {
+////            var key = event.which || event.keyCode;
+////            if (key === 13) {
+////                event.preventDefault();
+////            }
+//             if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
+//             event.preventDefault();
+//             }
+//             });
+                     var idleTimeout = 900000; // 5 minutes in milliseconds
+                     var idleTimer;
+                     function resetTimer() {
+                         clearTimeout(idleTimer);
+                         idleTimer = setTimeout(logout, idleTimeout);
+                     }
+
+                     function logout() {
+                         window.localStorage.removeItem("user_asBOM");
+                         location.reload();
+                         console.log("User automatically logged out due to inactivity.");
+                     }
+
+                     // Initial setup
+                     resetTimer();
+                     // Listen for user activity
+                     window.addEventListener('mousemove', resetTimer);
+                     window.addEventListener('keydown', resetTimer);
+                     window.addEventListener('scroll', resetTimer);
+        </script>
+    </body>
+</html>
