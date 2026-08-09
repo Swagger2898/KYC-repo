@@ -23,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
+//@Entity
 @ToString
 public class KycPartnership extends BaseKycModel {
 

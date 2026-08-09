@@ -20,7 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
+//@Entity
 @ToString
 public class KycJointSaving extends BaseKycModel {
 
