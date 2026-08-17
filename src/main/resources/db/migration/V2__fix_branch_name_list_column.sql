@@ -1,0 +1,1 @@
+ALTER TABLE branch_access RENAME COLUMN "branchNameList" TO branch_name_list;
