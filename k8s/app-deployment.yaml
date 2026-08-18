@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kyc-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kyc-app
+  template:
+    metadata:
+      labels:
+        app: kyc-app
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: kyc-app
+          image: ghcr.io/swagger2898/kyc-repo:latest
+          ports:
+            - containerPort: 9091
+          envFrom:
+            - configMapRef:
+                name: kyc-config
+            - secretRef:
+                name: app-secret
